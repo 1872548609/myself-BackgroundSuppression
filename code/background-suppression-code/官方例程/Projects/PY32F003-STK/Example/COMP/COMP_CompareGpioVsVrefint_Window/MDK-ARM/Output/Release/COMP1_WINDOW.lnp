@@ -1,0 +1,21 @@
+--cpu Cortex-M0+
+".\output\release\startup_py32f003xx.o"
+".\output\release\system_py32f0xx.o"
+".\output\release\main.o"
+".\output\release\py32f0xx_hal_msp.o"
+".\output\release\py32f0xx_it.o"
+".\output\release\py32f003xx_start_kit.o"
+".\output\release\py32f0xx_hal.o"
+".\output\release\py32f0xx_hal_rcc.o"
+".\output\release\py32f0xx_hal_rcc_ex.o"
+".\output\release\py32f0xx_hal_comp.o"
+".\output\release\py32f0xx_hal_flash.o"
+".\output\release\py32f0xx_hal_gpio.o"
+".\output\release\py32f0xx_hal_dma.o"
+".\output\release\py32f0xx_hal_pwr.o"
+".\output\release\py32f0xx_hal_uart.o"
+".\output\release\py32f0xx_hal_cortex.o"
+--library_type=microlib --strict --scatter ".\Output\Release\COMP1_WINDOW.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Output\Release\COMP1_WINDOW.map" -o .\Output\Release\COMP1_WINDOW.axf

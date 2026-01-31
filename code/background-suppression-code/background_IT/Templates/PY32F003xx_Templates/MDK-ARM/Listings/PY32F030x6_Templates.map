@@ -1,0 +1,1400 @@
+Component: ARM Compiler 5.06 update 7 (build 960) Tool: armlink [4d3601]
+
+==============================================================================
+
+Section Cross References
+
+    system_py32f0xx.o(i.$Sub$$main) refers to main.o(i.main) for $Super$$main
+    system_py32f0xx.o(i.$Sub$$main) refers to system_py32f0xx.o(.ARM.__at_0x20000000) for VECT_SRAM_TAB
+    system_py32f0xx.o(i.SystemCoreClockUpdate) refers to system_py32f0xx.o(.data) for SystemCoreClock
+    system_py32f0xx.o(i.SystemCoreClockUpdate) refers to system_py32f0xx.o(.constdata) for HSIFreqTable
+    startup_py32f003xx.o(RESET) refers to startup_py32f003xx.o(STACK) for __initial_sp
+    startup_py32f003xx.o(RESET) refers to startup_py32f003xx.o(.text) for Reset_Handler
+    startup_py32f003xx.o(RESET) refers to py32f0xx_it.o(i.NMI_Handler) for NMI_Handler
+    startup_py32f003xx.o(RESET) refers to py32f0xx_it.o(i.HardFault_Handler) for HardFault_Handler
+    startup_py32f003xx.o(RESET) refers to py32f0xx_it.o(i.SVC_Handler) for SVC_Handler
+    startup_py32f003xx.o(RESET) refers to py32f0xx_it.o(i.PendSV_Handler) for PendSV_Handler
+    startup_py32f003xx.o(RESET) refers to py32f0xx_it.o(i.SysTick_Handler) for SysTick_Handler
+    startup_py32f003xx.o(RESET) refers to main.o(i.EXTI0_1_IRQHandler) for EXTI0_1_IRQHandler
+    startup_py32f003xx.o(RESET) refers to main.o(i.TIM3_IRQHandler) for TIM3_IRQHandler
+    startup_py32f003xx.o(.text) refers to system_py32f0xx.o(i.SystemInit) for SystemInit
+    startup_py32f003xx.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    main.o(i.APP_AdcInit) refers to py32f0xx_hal_adc.o(i.HAL_ADC_Calibration_Start) for HAL_ADC_Calibration_Start
+    main.o(i.APP_AdcInit) refers to main.o(i.APP_ErrorHandler) for APP_ErrorHandler
+    main.o(i.APP_AdcInit) refers to py32f0xx_hal_adc.o(i.HAL_ADC_Init) for HAL_ADC_Init
+    main.o(i.APP_AdcInit) refers to py32f0xx_hal_adc.o(i.HAL_ADC_ConfigChannel) for HAL_ADC_ConfigChannel
+    main.o(i.APP_AdcInit) refers to main.o(.bss) for AdcHandle
+    main.o(i.APP_ConfigureExti) refers to memseta.o(.text) for __aeabi_memclr4
+    main.o(i.APP_ConfigureExti) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    main.o(i.APP_ConfigureExti) refers to py32f0xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ) for HAL_NVIC_EnableIRQ
+    main.o(i.APP_ConfigureExti) refers to py32f0xx_hal_cortex.o(i.HAL_NVIC_SetPriority) for HAL_NVIC_SetPriority
+    main.o(i.APP_SystemClockConfig) refers to memseta.o(.text) for __aeabi_memclr4
+    main.o(i.APP_SystemClockConfig) refers to py32f0xx_hal_rcc.o(i.HAL_RCC_OscConfig) for HAL_RCC_OscConfig
+    main.o(i.APP_SystemClockConfig) refers to main.o(i.APP_ErrorHandler) for APP_ErrorHandler
+    main.o(i.APP_SystemClockConfig) refers to py32f0xx_hal_rcc.o(i.HAL_RCC_ClockConfig) for HAL_RCC_ClockConfig
+    main.o(i.EXTI0_1_IRQHandler) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_EXTI_IRQHandler) for HAL_GPIO_EXTI_IRQHandler
+    main.o(i.GPIO_Init) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    main.o(i.GPIO_Init) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    main.o(i.GPIO_Init) refers to main.o(.bss) for GPIO_InitStruct
+    main.o(i.TIM3_IRQHandler) refers to py32f0xx_hal_tim.o(i.HAL_TIM_IRQHandler) for HAL_TIM_IRQHandler
+    main.o(i.TIM3_IRQHandler) refers to main.o(.bss) for TimHandle
+    main.o(i.TMR3_OC_Init) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    main.o(i.TMR3_OC_Init) refers to py32f0xx_hal_tim.o(i.HAL_TIM_Base_Init) for HAL_TIM_Base_Init
+    main.o(i.TMR3_OC_Init) refers to main.o(i.APP_ErrorHandler) for APP_ErrorHandler
+    main.o(i.TMR3_OC_Init) refers to py32f0xx_hal_tim.o(i.HAL_TIM_OC_ConfigChannel) for HAL_TIM_OC_ConfigChannel
+    main.o(i.TMR3_OC_Init) refers to py32f0xx_hal_tim.o(i.HAL_TIM_OC_Start) for HAL_TIM_OC_Start
+    main.o(i.TMR3_OC_Init) refers to py32f0xx_hal_tim.o(i.HAL_TIM_Base_Start) for HAL_TIM_Base_Start
+    main.o(i.TMR3_OC_Init) refers to main.o(.bss) for GPIO_InitStruct
+    main.o(i.main) refers to py32f0xx_hal.o(i.HAL_Init) for HAL_Init
+    main.o(i.main) refers to main.o(i.APP_SystemClockConfig) for APP_SystemClockConfig
+    main.o(i.main) refers to main.o(i.GPIO_Init) for GPIO_Init
+    main.o(i.main) refers to main.o(i.TMR3_OC_Init) for TMR3_OC_Init
+    main.o(i.main) refers to main.o(i.APP_ConfigureExti) for APP_ConfigureExti
+    main.o(i.main) refers to py32f0xx_hal_adc.o(i.HAL_ADC_Start) for HAL_ADC_Start
+    main.o(i.main) refers to py32f0xx_hal_adc.o(i.HAL_ADC_PollForConversion) for HAL_ADC_PollForConversion
+    main.o(i.main) refers to py32f0xx_hal_adc.o(i.HAL_ADC_GetValue) for HAL_ADC_GetValue
+    main.o(i.main) refers to py32f0xx_hal.o(i.HAL_Delay) for HAL_Delay
+    main.o(i.main) refers to main.o(.bss) for AdcHandle
+    py32f0xx_it.o(i.SysTick_Handler) refers to py32f0xx_hal.o(i.HAL_IncTick) for HAL_IncTick
+    py32f003xx_start_kit.o(i.BSP_LED_DeInit) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    py32f003xx_start_kit.o(i.BSP_LED_DeInit) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_DeInit) for HAL_GPIO_DeInit
+    py32f003xx_start_kit.o(i.BSP_LED_DeInit) refers to py32f003xx_start_kit.o(.constdata) for LED_PIN
+    py32f003xx_start_kit.o(i.BSP_LED_DeInit) refers to py32f003xx_start_kit.o(.data) for LED_PORT
+    py32f003xx_start_kit.o(i.BSP_LED_Init) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    py32f003xx_start_kit.o(i.BSP_LED_Init) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    py32f003xx_start_kit.o(i.BSP_LED_Init) refers to py32f003xx_start_kit.o(.constdata) for LED_PIN
+    py32f003xx_start_kit.o(i.BSP_LED_Init) refers to py32f003xx_start_kit.o(.data) for LED_PORT
+    py32f003xx_start_kit.o(i.BSP_LED_Off) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    py32f003xx_start_kit.o(i.BSP_LED_Off) refers to py32f003xx_start_kit.o(.constdata) for LED_PIN
+    py32f003xx_start_kit.o(i.BSP_LED_Off) refers to py32f003xx_start_kit.o(.data) for LED_PORT
+    py32f003xx_start_kit.o(i.BSP_LED_On) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    py32f003xx_start_kit.o(i.BSP_LED_On) refers to py32f003xx_start_kit.o(.constdata) for LED_PIN
+    py32f003xx_start_kit.o(i.BSP_LED_On) refers to py32f003xx_start_kit.o(.data) for LED_PORT
+    py32f003xx_start_kit.o(i.BSP_LED_Toggle) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_TogglePin) for HAL_GPIO_TogglePin
+    py32f003xx_start_kit.o(i.BSP_LED_Toggle) refers to py32f003xx_start_kit.o(.constdata) for LED_PIN
+    py32f003xx_start_kit.o(i.BSP_LED_Toggle) refers to py32f003xx_start_kit.o(.data) for LED_PORT
+    py32f003xx_start_kit.o(i.BSP_PB_DeInit) refers to py32f0xx_hal_cortex.o(i.HAL_NVIC_DisableIRQ) for HAL_NVIC_DisableIRQ
+    py32f003xx_start_kit.o(i.BSP_PB_DeInit) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_DeInit) for HAL_GPIO_DeInit
+    py32f003xx_start_kit.o(i.BSP_PB_DeInit) refers to py32f003xx_start_kit.o(.constdata) for BUTTON_PIN
+    py32f003xx_start_kit.o(i.BSP_PB_DeInit) refers to py32f003xx_start_kit.o(.data) for BUTTON_PORT
+    py32f003xx_start_kit.o(i.BSP_PB_GetState) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_ReadPin) for HAL_GPIO_ReadPin
+    py32f003xx_start_kit.o(i.BSP_PB_GetState) refers to py32f003xx_start_kit.o(.constdata) for BUTTON_PIN
+    py32f003xx_start_kit.o(i.BSP_PB_GetState) refers to py32f003xx_start_kit.o(.data) for BUTTON_PORT
+    py32f003xx_start_kit.o(i.BSP_PB_Init) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    py32f003xx_start_kit.o(i.BSP_PB_Init) refers to py32f0xx_hal_cortex.o(i.HAL_NVIC_SetPriority) for HAL_NVIC_SetPriority
+    py32f003xx_start_kit.o(i.BSP_PB_Init) refers to py32f0xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ) for HAL_NVIC_EnableIRQ
+    py32f003xx_start_kit.o(i.BSP_PB_Init) refers to py32f003xx_start_kit.o(.constdata) for BUTTON_PIN
+    py32f003xx_start_kit.o(i.BSP_PB_Init) refers to py32f003xx_start_kit.o(.data) for BUTTON_PORT
+    py32f003xx_start_kit.o(i.BSP_USART_Config) refers to py32f0xx_hal_uart.o(i.HAL_UART_Init) for HAL_UART_Init
+    py32f003xx_start_kit.o(i.BSP_USART_Config) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    py32f003xx_start_kit.o(i.BSP_USART_Config) refers to py32f0xx_hal_cortex.o(i.HAL_NVIC_SetPriority) for HAL_NVIC_SetPriority
+    py32f003xx_start_kit.o(i.BSP_USART_Config) refers to py32f0xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ) for HAL_NVIC_EnableIRQ
+    py32f003xx_start_kit.o(i.BSP_USART_Config) refers to py32f003xx_start_kit.o(.bss) for DebugUartHandle
+    py32f003xx_start_kit.o(i.fgetc) refers to py32f0xx_hal_uart.o(i.HAL_UART_Receive) for HAL_UART_Receive
+    py32f003xx_start_kit.o(i.fgetc) refers to py32f003xx_start_kit.o(.bss) for DebugUartHandle
+    py32f003xx_start_kit.o(i.fputc) refers to py32f0xx_hal_uart.o(i.HAL_UART_Transmit) for HAL_UART_Transmit
+    py32f003xx_start_kit.o(i.fputc) refers to py32f003xx_start_kit.o(.bss) for DebugUartHandle
+    py32f0xx_hal.o(i.HAL_DeInit) refers to py32f0xx_hal.o(i.HAL_MspDeInit) for HAL_MspDeInit
+    py32f0xx_hal.o(i.HAL_Delay) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal.o(i.HAL_Delay) refers to py32f0xx_hal.o(.data) for uwTickFreq
+    py32f0xx_hal.o(i.HAL_GetTick) refers to py32f0xx_hal.o(.data) for uwTick
+    py32f0xx_hal.o(i.HAL_GetTickFreq) refers to py32f0xx_hal.o(.data) for uwTickFreq
+    py32f0xx_hal.o(i.HAL_GetTickPrio) refers to py32f0xx_hal.o(.data) for uwTickPrio
+    py32f0xx_hal.o(i.HAL_IncTick) refers to py32f0xx_hal.o(.data) for uwTick
+    py32f0xx_hal.o(i.HAL_Init) refers to py32f0xx_hal.o(i.HAL_InitTick) for HAL_InitTick
+    py32f0xx_hal.o(i.HAL_Init) refers to py32f0xx_hal_msp.o(i.HAL_MspInit) for HAL_MspInit
+    py32f0xx_hal.o(i.HAL_InitTick) refers to uidiv.o(.text) for __aeabi_uidivmod
+    py32f0xx_hal.o(i.HAL_InitTick) refers to py32f0xx_hal_cortex.o(i.HAL_SYSTICK_Config) for HAL_SYSTICK_Config
+    py32f0xx_hal.o(i.HAL_InitTick) refers to py32f0xx_hal_cortex.o(i.HAL_NVIC_SetPriority) for HAL_NVIC_SetPriority
+    py32f0xx_hal.o(i.HAL_InitTick) refers to py32f0xx_hal.o(.data) for uwTickFreq
+    py32f0xx_hal.o(i.HAL_InitTick) refers to system_py32f0xx.o(.data) for SystemCoreClock
+    py32f0xx_hal.o(i.HAL_SetTickFreq) refers to py32f0xx_hal.o(i.HAL_InitTick) for HAL_InitTick
+    py32f0xx_hal.o(i.HAL_SetTickFreq) refers to py32f0xx_hal.o(.data) for uwTickFreq
+    py32f0xx_hal_cortex.o(i.HAL_NVIC_SetPriority) refers to py32f0xx_hal_cortex.o(i.NVIC_SetPriority) for NVIC_SetPriority
+    py32f0xx_hal_cortex.o(i.HAL_SYSTICK_Config) refers to py32f0xx_hal_cortex.o(i.NVIC_SetPriority) for NVIC_SetPriority
+    py32f0xx_hal_cortex.o(i.HAL_SYSTICK_IRQHandler) refers to py32f0xx_hal_cortex.o(i.HAL_SYSTICK_Callback) for HAL_SYSTICK_Callback
+    py32f0xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to py32f0xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq) for HAL_RCC_GetSysClockFreq
+    py32f0xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to py32f0xx_hal.o(i.HAL_InitTick) for HAL_InitTick
+    py32f0xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to system_py32f0xx.o(.constdata) for AHBPrescTable
+    py32f0xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to system_py32f0xx.o(.data) for SystemCoreClock
+    py32f0xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to py32f0xx_hal.o(.data) for uwTickPrio
+    py32f0xx_hal_rcc.o(i.HAL_RCC_DeInit) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal_rcc.o(i.HAL_RCC_DeInit) refers to py32f0xx_hal.o(i.HAL_InitTick) for HAL_InitTick
+    py32f0xx_hal_rcc.o(i.HAL_RCC_DeInit) refers to system_py32f0xx.o(.data) for SystemCoreClock
+    py32f0xx_hal_rcc.o(i.HAL_RCC_DeInit) refers to py32f0xx_hal.o(.data) for uwTickPrio
+    py32f0xx_hal_rcc.o(i.HAL_RCC_GetHCLKFreq) refers to system_py32f0xx.o(.data) for SystemCoreClock
+    py32f0xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq) refers to py32f0xx_hal_rcc.o(i.HAL_RCC_GetHCLKFreq) for HAL_RCC_GetHCLKFreq
+    py32f0xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq) refers to system_py32f0xx.o(.constdata) for APBPrescTable
+    py32f0xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq) refers to memcpya.o(.text) for __aeabi_memcpy4
+    py32f0xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq) refers to py32f0xx_hal_rcc.o(.constdata) for .constdata
+    py32f0xx_hal_rcc.o(i.HAL_RCC_MCOConfig) refers to py32f0xx_hal_rcc.o(i.__ARM_common_switch8) for __ARM_common_switch8
+    py32f0xx_hal_rcc.o(i.HAL_RCC_MCOConfig) refers to py32f0xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    py32f0xx_hal_rcc.o(i.HAL_RCC_NMI_IRQHandler) refers to py32f0xx_hal_rcc.o(i.HAL_RCC_CSSCallback) for HAL_RCC_CSSCallback
+    py32f0xx_hal_rcc.o(i.HAL_RCC_OscConfig) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal_rcc.o(i.HAL_RCC_OscConfig) refers to py32f0xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq) for HAL_RCC_GetSysClockFreq
+    py32f0xx_hal_rcc.o(i.HAL_RCC_OscConfig) refers to py32f0xx_hal.o(i.HAL_InitTick) for HAL_InitTick
+    py32f0xx_hal_rcc.o(i.HAL_RCC_OscConfig) refers to system_py32f0xx.o(.constdata) for AHBPrescTable
+    py32f0xx_hal_rcc.o(i.HAL_RCC_OscConfig) refers to system_py32f0xx.o(.data) for SystemCoreClock
+    py32f0xx_hal_rcc.o(i.HAL_RCC_OscConfig) refers to py32f0xx_hal.o(.data) for uwTickPrio
+    py32f0xx_hal_rcc_ex.o(i.HAL_RCCEx_EnableLSCO) refers to py32f0xx_hal_pwr.o(i.HAL_PWR_EnableBkUpAccess) for HAL_PWR_EnableBkUpAccess
+    py32f0xx_hal_rcc_ex.o(i.HAL_RCCEx_EnableLSCO) refers to py32f0xx_hal_pwr.o(i.HAL_PWR_DisableBkUpAccess) for HAL_PWR_DisableBkUpAccess
+    py32f0xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPeriphCLKFreq) refers to py32f0xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq) for HAL_RCC_GetPCLK1Freq
+    py32f0xx_hal_rcc_ex.o(i.HAL_RCCEx_PeriphCLKConfig) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal_gpio.o(i.HAL_GPIO_EXTI_IRQHandler) refers to main.o(i.HAL_GPIO_EXTI_Callback) for HAL_GPIO_EXTI_Callback
+    py32f0xx_hal_pwr.o(i.HAL_PWR_PVD_IRQHandler) refers to py32f0xx_hal_pwr.o(i.HAL_PWR_PVD_Callback) for HAL_PWR_PVD_Callback
+    py32f0xx_hal_dma.o(i.HAL_DMA_ChannelMap) refers to uidiv.o(.text) for __aeabi_uidivmod
+    py32f0xx_hal_dma.o(i.HAL_DMA_DeInit) refers to uidiv.o(.text) for __aeabi_uidivmod
+    py32f0xx_hal_dma.o(i.HAL_DMA_Init) refers to uidiv.o(.text) for __aeabi_uidivmod
+    py32f0xx_hal_dma.o(i.HAL_DMA_PollForTransfer) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal_dma.o(i.HAL_DMA_Start) refers to py32f0xx_hal_dma.o(i.DMA_SetConfig) for DMA_SetConfig
+    py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT) refers to py32f0xx_hal_dma.o(i.DMA_SetConfig) for DMA_SetConfig
+    py32f0xx_hal_dma.o(i.HAL_DMA_UnRegisterCallback) refers to py32f0xx_hal_rcc.o(i.__ARM_common_switch8) for __ARM_common_switch8
+    py32f0xx_hal_adc.o(i.ADC_ConversionStop) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal_adc.o(i.ADC_DMAConvCplt) refers to py32f0xx_hal_adc.o(i.HAL_ADC_ConvCpltCallback) for HAL_ADC_ConvCpltCallback
+    py32f0xx_hal_adc.o(i.ADC_DMAError) refers to py32f0xx_hal_adc.o(i.HAL_ADC_ErrorCallback) for HAL_ADC_ErrorCallback
+    py32f0xx_hal_adc.o(i.ADC_DMAHalfConvCplt) refers to py32f0xx_hal_adc.o(i.HAL_ADC_ConvHalfCpltCallback) for HAL_ADC_ConvHalfCpltCallback
+    py32f0xx_hal_adc.o(i.ADC_Disable) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal_adc.o(i.ADC_Enable) refers to uidiv.o(.text) for __aeabi_uidivmod
+    py32f0xx_hal_adc.o(i.ADC_Enable) refers to system_py32f0xx.o(.data) for SystemCoreClock
+    py32f0xx_hal_adc.o(i.HAL_ADC_Calibration_SingleStart) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal_adc.o(i.HAL_ADC_Calibration_Start) refers to py32f0xx_hal_adc.o(i.HAL_ADC_Calibration_SingleStart) for HAL_ADC_Calibration_SingleStart
+    py32f0xx_hal_adc.o(i.HAL_ADC_Calibration_Start) refers to py32f0xx_hal_adc.o(i.ADC_QuickSort) for ADC_QuickSort
+    py32f0xx_hal_adc.o(i.HAL_ADC_ConfigChannel) refers to uidiv.o(.text) for __aeabi_uidivmod
+    py32f0xx_hal_adc.o(i.HAL_ADC_ConfigChannel) refers to system_py32f0xx.o(.data) for SystemCoreClock
+    py32f0xx_hal_adc.o(i.HAL_ADC_DeInit) refers to py32f0xx_hal_adc.o(i.ADC_ConversionStop) for ADC_ConversionStop
+    py32f0xx_hal_adc.o(i.HAL_ADC_DeInit) refers to py32f0xx_hal_adc.o(i.ADC_Disable) for ADC_Disable
+    py32f0xx_hal_adc.o(i.HAL_ADC_DeInit) refers to py32f0xx_hal_adc.o(i.HAL_ADC_MspDeInit) for HAL_ADC_MspDeInit
+    py32f0xx_hal_adc.o(i.HAL_ADC_IRQHandler) refers to py32f0xx_hal_adc.o(i.HAL_ADC_ConvCpltCallback) for HAL_ADC_ConvCpltCallback
+    py32f0xx_hal_adc.o(i.HAL_ADC_IRQHandler) refers to py32f0xx_hal_adc.o(i.HAL_ADC_LevelOutOfWindowCallback) for HAL_ADC_LevelOutOfWindowCallback
+    py32f0xx_hal_adc.o(i.HAL_ADC_IRQHandler) refers to py32f0xx_hal_adc.o(i.HAL_ADC_ErrorCallback) for HAL_ADC_ErrorCallback
+    py32f0xx_hal_adc.o(i.HAL_ADC_Init) refers to py32f0xx_hal_adc.o(i.HAL_ADC_MspInit) for HAL_ADC_MspInit
+    py32f0xx_hal_adc.o(i.HAL_ADC_PollForConversion) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal_adc.o(i.HAL_ADC_PollForEvent) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal_adc.o(i.HAL_ADC_Start) refers to py32f0xx_hal_adc.o(i.ADC_Enable) for ADC_Enable
+    py32f0xx_hal_adc.o(i.HAL_ADC_Start_DMA) refers to py32f0xx_hal_adc.o(i.ADC_Enable) for ADC_Enable
+    py32f0xx_hal_adc.o(i.HAL_ADC_Start_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT) for HAL_DMA_Start_IT
+    py32f0xx_hal_adc.o(i.HAL_ADC_Start_DMA) refers to py32f0xx_hal_adc.o(i.ADC_DMAConvCplt) for ADC_DMAConvCplt
+    py32f0xx_hal_adc.o(i.HAL_ADC_Start_DMA) refers to py32f0xx_hal_adc.o(i.ADC_DMAHalfConvCplt) for ADC_DMAHalfConvCplt
+    py32f0xx_hal_adc.o(i.HAL_ADC_Start_DMA) refers to py32f0xx_hal_adc.o(i.ADC_DMAError) for ADC_DMAError
+    py32f0xx_hal_adc.o(i.HAL_ADC_Start_IT) refers to py32f0xx_hal_adc.o(i.ADC_Enable) for ADC_Enable
+    py32f0xx_hal_adc.o(i.HAL_ADC_Stop) refers to py32f0xx_hal_adc.o(i.ADC_ConversionStop) for ADC_ConversionStop
+    py32f0xx_hal_adc.o(i.HAL_ADC_Stop) refers to py32f0xx_hal_adc.o(i.ADC_Disable) for ADC_Disable
+    py32f0xx_hal_adc.o(i.HAL_ADC_Stop_DMA) refers to py32f0xx_hal_adc.o(i.ADC_ConversionStop) for ADC_ConversionStop
+    py32f0xx_hal_adc.o(i.HAL_ADC_Stop_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort) for HAL_DMA_Abort
+    py32f0xx_hal_adc.o(i.HAL_ADC_Stop_DMA) refers to py32f0xx_hal_adc.o(i.ADC_Disable) for ADC_Disable
+    py32f0xx_hal_adc.o(i.HAL_ADC_Stop_IT) refers to py32f0xx_hal_adc.o(i.ADC_ConversionStop) for ADC_ConversionStop
+    py32f0xx_hal_adc.o(i.HAL_ADC_Stop_IT) refers to py32f0xx_hal_adc.o(i.ADC_Disable) for ADC_Disable
+    py32f0xx_hal_uart.o(i.HAL_HalfDuplex_Init) refers to py32f0xx_hal_uart.o(i.HAL_UART_MspInit) for HAL_UART_MspInit
+    py32f0xx_hal_uart.o(i.HAL_HalfDuplex_Init) refers to py32f0xx_hal_uart.o(i.UART_SetConfig) for UART_SetConfig
+    py32f0xx_hal_uart.o(i.HAL_MultiProcessor_Init) refers to py32f0xx_hal_uart.o(i.HAL_UART_MspInit) for HAL_UART_MspInit
+    py32f0xx_hal_uart.o(i.HAL_MultiProcessor_Init) refers to py32f0xx_hal_uart.o(i.UART_SetConfig) for UART_SetConfig
+    py32f0xx_hal_uart.o(i.HAL_UART_Abort) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort) for HAL_DMA_Abort
+    py32f0xx_hal_uart.o(i.HAL_UART_Abort) refers to py32f0xx_hal_dma.o(i.HAL_DMA_GetError) for HAL_DMA_GetError
+    py32f0xx_hal_uart.o(i.HAL_UART_AbortReceive) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort) for HAL_DMA_Abort
+    py32f0xx_hal_uart.o(i.HAL_UART_AbortReceive) refers to py32f0xx_hal_dma.o(i.HAL_DMA_GetError) for HAL_DMA_GetError
+    py32f0xx_hal_uart.o(i.HAL_UART_AbortReceive_IT) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT) for HAL_DMA_Abort_IT
+    py32f0xx_hal_uart.o(i.HAL_UART_AbortReceive_IT) refers to py32f0xx_hal_uart.o(i.HAL_UART_AbortReceiveCpltCallback) for HAL_UART_AbortReceiveCpltCallback
+    py32f0xx_hal_uart.o(i.HAL_UART_AbortReceive_IT) refers to py32f0xx_hal_uart.o(i.UART_DMARxOnlyAbortCallback) for UART_DMARxOnlyAbortCallback
+    py32f0xx_hal_uart.o(i.HAL_UART_AbortTransmit) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort) for HAL_DMA_Abort
+    py32f0xx_hal_uart.o(i.HAL_UART_AbortTransmit) refers to py32f0xx_hal_dma.o(i.HAL_DMA_GetError) for HAL_DMA_GetError
+    py32f0xx_hal_uart.o(i.HAL_UART_AbortTransmit_IT) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT) for HAL_DMA_Abort_IT
+    py32f0xx_hal_uart.o(i.HAL_UART_AbortTransmit_IT) refers to py32f0xx_hal_uart.o(i.HAL_UART_AbortTransmitCpltCallback) for HAL_UART_AbortTransmitCpltCallback
+    py32f0xx_hal_uart.o(i.HAL_UART_AbortTransmit_IT) refers to py32f0xx_hal_uart.o(i.UART_DMATxOnlyAbortCallback) for UART_DMATxOnlyAbortCallback
+    py32f0xx_hal_uart.o(i.HAL_UART_Abort_IT) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT) for HAL_DMA_Abort_IT
+    py32f0xx_hal_uart.o(i.HAL_UART_Abort_IT) refers to py32f0xx_hal_uart.o(i.HAL_UART_AbortCpltCallback) for HAL_UART_AbortCpltCallback
+    py32f0xx_hal_uart.o(i.HAL_UART_Abort_IT) refers to py32f0xx_hal_uart.o(i.UART_DMATxAbortCallback) for UART_DMATxAbortCallback
+    py32f0xx_hal_uart.o(i.HAL_UART_Abort_IT) refers to py32f0xx_hal_uart.o(i.UART_DMARxAbortCallback) for UART_DMARxAbortCallback
+    py32f0xx_hal_uart.o(i.HAL_UART_DMAStop) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort) for HAL_DMA_Abort
+    py32f0xx_hal_uart.o(i.HAL_UART_DMAStop) refers to py32f0xx_hal_uart.o(i.UART_EndTxTransfer) for UART_EndTxTransfer
+    py32f0xx_hal_uart.o(i.HAL_UART_DMAStop) refers to py32f0xx_hal_uart.o(i.UART_EndRxTransfer) for UART_EndRxTransfer
+    py32f0xx_hal_uart.o(i.HAL_UART_DeInit) refers to py32f0xx_hal_uart.o(i.HAL_UART_MspDeInit) for HAL_UART_MspDeInit
+    py32f0xx_hal_uart.o(i.HAL_UART_IRQHandler) refers to py32f0xx_hal_uart.o(i.UART_Receive_IT) for UART_Receive_IT
+    py32f0xx_hal_uart.o(i.HAL_UART_IRQHandler) refers to py32f0xx_hal_uart.o(i.UART_EndRxTransfer) for UART_EndRxTransfer
+    py32f0xx_hal_uart.o(i.HAL_UART_IRQHandler) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT) for HAL_DMA_Abort_IT
+    py32f0xx_hal_uart.o(i.HAL_UART_IRQHandler) refers to py32f0xx_hal_uart.o(i.HAL_UART_ErrorCallback) for HAL_UART_ErrorCallback
+    py32f0xx_hal_uart.o(i.HAL_UART_IRQHandler) refers to py32f0xx_hal_uart.o(i.HAL_UART_IdleFrameDetectCpltCallback) for HAL_UART_IdleFrameDetectCpltCallback
+    py32f0xx_hal_uart.o(i.HAL_UART_IRQHandler) refers to py32f0xx_hal_uart.o(i.UART_Transmit_IT) for UART_Transmit_IT
+    py32f0xx_hal_uart.o(i.HAL_UART_IRQHandler) refers to py32f0xx_hal_uart.o(i.UART_EndTransmit_IT) for UART_EndTransmit_IT
+    py32f0xx_hal_uart.o(i.HAL_UART_IRQHandler) refers to py32f0xx_hal_uart.o(i.UART_DMAAbortOnError) for UART_DMAAbortOnError
+    py32f0xx_hal_uart.o(i.HAL_UART_Init) refers to py32f0xx_hal_uart.o(i.HAL_UART_MspInit) for HAL_UART_MspInit
+    py32f0xx_hal_uart.o(i.HAL_UART_Init) refers to py32f0xx_hal_uart.o(i.UART_SetConfig) for UART_SetConfig
+    py32f0xx_hal_uart.o(i.HAL_UART_Init) refers to py32f0xx_hal_uart.o(i.UART_AdvFeatureConfig) for UART_AdvFeatureConfig
+    py32f0xx_hal_uart.o(i.HAL_UART_Receive) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal_uart.o(i.HAL_UART_Receive) refers to py32f0xx_hal_uart.o(i.UART_WaitOnFlagUntilTimeout) for UART_WaitOnFlagUntilTimeout
+    py32f0xx_hal_uart.o(i.HAL_UART_Receive_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT) for HAL_DMA_Start_IT
+    py32f0xx_hal_uart.o(i.HAL_UART_Receive_DMA) refers to py32f0xx_hal_uart.o(i.UART_DMAReceiveCplt) for UART_DMAReceiveCplt
+    py32f0xx_hal_uart.o(i.HAL_UART_Receive_DMA) refers to py32f0xx_hal_uart.o(i.UART_DMARxHalfCplt) for UART_DMARxHalfCplt
+    py32f0xx_hal_uart.o(i.HAL_UART_Receive_DMA) refers to py32f0xx_hal_uart.o(i.UART_DMAError) for UART_DMAError
+    py32f0xx_hal_uart.o(i.HAL_UART_Transmit) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal_uart.o(i.HAL_UART_Transmit) refers to py32f0xx_hal_uart.o(i.UART_WaitOnFlagUntilTimeout) for UART_WaitOnFlagUntilTimeout
+    py32f0xx_hal_uart.o(i.HAL_UART_Transmit_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT) for HAL_DMA_Start_IT
+    py32f0xx_hal_uart.o(i.HAL_UART_Transmit_DMA) refers to py32f0xx_hal_uart.o(i.UART_DMATransmitCplt) for UART_DMATransmitCplt
+    py32f0xx_hal_uart.o(i.HAL_UART_Transmit_DMA) refers to py32f0xx_hal_uart.o(i.UART_DMATxHalfCplt) for UART_DMATxHalfCplt
+    py32f0xx_hal_uart.o(i.HAL_UART_Transmit_DMA) refers to py32f0xx_hal_uart.o(i.UART_DMAError) for UART_DMAError
+    py32f0xx_hal_uart.o(i.UART_DMAAbortOnError) refers to py32f0xx_hal_uart.o(i.HAL_UART_ErrorCallback) for HAL_UART_ErrorCallback
+    py32f0xx_hal_uart.o(i.UART_DMAError) refers to py32f0xx_hal_uart.o(i.UART_EndTxTransfer) for UART_EndTxTransfer
+    py32f0xx_hal_uart.o(i.UART_DMAError) refers to py32f0xx_hal_uart.o(i.UART_EndRxTransfer) for UART_EndRxTransfer
+    py32f0xx_hal_uart.o(i.UART_DMAError) refers to py32f0xx_hal_uart.o(i.HAL_UART_ErrorCallback) for HAL_UART_ErrorCallback
+    py32f0xx_hal_uart.o(i.UART_DMAReceiveCplt) refers to py32f0xx_hal_uart.o(i.HAL_UART_RxCpltCallback) for HAL_UART_RxCpltCallback
+    py32f0xx_hal_uart.o(i.UART_DMARxAbortCallback) refers to py32f0xx_hal_uart.o(i.HAL_UART_AbortCpltCallback) for HAL_UART_AbortCpltCallback
+    py32f0xx_hal_uart.o(i.UART_DMARxHalfCplt) refers to py32f0xx_hal_uart.o(i.HAL_UART_RxHalfCpltCallback) for HAL_UART_RxHalfCpltCallback
+    py32f0xx_hal_uart.o(i.UART_DMARxOnlyAbortCallback) refers to py32f0xx_hal_uart.o(i.HAL_UART_AbortReceiveCpltCallback) for HAL_UART_AbortReceiveCpltCallback
+    py32f0xx_hal_uart.o(i.UART_DMATransmitCplt) refers to py32f0xx_hal_uart.o(i.HAL_UART_TxCpltCallback) for HAL_UART_TxCpltCallback
+    py32f0xx_hal_uart.o(i.UART_DMATxAbortCallback) refers to py32f0xx_hal_uart.o(i.HAL_UART_AbortCpltCallback) for HAL_UART_AbortCpltCallback
+    py32f0xx_hal_uart.o(i.UART_DMATxHalfCplt) refers to py32f0xx_hal_uart.o(i.HAL_UART_TxHalfCpltCallback) for HAL_UART_TxHalfCpltCallback
+    py32f0xx_hal_uart.o(i.UART_DMATxOnlyAbortCallback) refers to py32f0xx_hal_uart.o(i.HAL_UART_AbortTransmitCpltCallback) for HAL_UART_AbortTransmitCpltCallback
+    py32f0xx_hal_uart.o(i.UART_EndTransmit_IT) refers to py32f0xx_hal_uart.o(i.HAL_UART_TxCpltCallback) for HAL_UART_TxCpltCallback
+    py32f0xx_hal_uart.o(i.UART_Receive_IT) refers to py32f0xx_hal_uart.o(i.HAL_UART_RxCpltCallback) for HAL_UART_RxCpltCallback
+    py32f0xx_hal_uart.o(i.UART_SetConfig) refers to py32f0xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq) for HAL_RCC_GetPCLK1Freq
+    py32f0xx_hal_uart.o(i.UART_SetConfig) refers to uidiv.o(.text) for __aeabi_uidivmod
+    py32f0xx_hal_uart.o(i.UART_WaitOnFlagUntilTimeout) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal_flash.o(i.FLASH_MassErase) refers to py32f0xx_hal_flash.o(.bss) for pFlash
+    py32f0xx_hal_flash.o(i.FLASH_PageErase) refers to py32f0xx_hal_flash.o(.bss) for pFlash
+    py32f0xx_hal_flash.o(i.FLASH_WaitForLastOperation) refers to py32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Erase) refers to py32f0xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Erase) refers to py32f0xx_hal_flash.o(i.FLASH_MassErase) for FLASH_MassErase
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Erase) refers to py32f0xx_hal_flash.o(i.FLASH_PageErase) for FLASH_PageErase
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Erase) refers to py32f0xx_hal_flash.o(i.FLASH_SectorErase) for FLASH_SectorErase
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Erase) refers to py32f0xx_hal_flash.o(.bss) for pFlash
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Erase) refers to py32f0xx_hal_flash.o(.constdata) for _FlashTimmingParam
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Erase_IT) refers to py32f0xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Erase_IT) refers to py32f0xx_hal_flash.o(i.FLASH_MassErase) for FLASH_MassErase
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Erase_IT) refers to py32f0xx_hal_flash.o(i.FLASH_PageErase) for FLASH_PageErase
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Erase_IT) refers to py32f0xx_hal_flash.o(i.FLASH_SectorErase) for FLASH_SectorErase
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Erase_IT) refers to py32f0xx_hal_flash.o(.bss) for pFlash
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Erase_IT) refers to py32f0xx_hal_flash.o(.constdata) for _FlashTimmingParam
+    py32f0xx_hal_flash.o(i.HAL_FLASH_GetError) refers to py32f0xx_hal_flash.o(.bss) for pFlash
+    py32f0xx_hal_flash.o(i.HAL_FLASH_IRQHandler) refers to py32f0xx_hal_flash.o(i.HAL_FLASH_OperationErrorCallback) for HAL_FLASH_OperationErrorCallback
+    py32f0xx_hal_flash.o(i.HAL_FLASH_IRQHandler) refers to py32f0xx_hal_flash.o(i.FLASH_PageErase) for FLASH_PageErase
+    py32f0xx_hal_flash.o(i.HAL_FLASH_IRQHandler) refers to py32f0xx_hal_flash.o(i.FLASH_SectorErase) for FLASH_SectorErase
+    py32f0xx_hal_flash.o(i.HAL_FLASH_IRQHandler) refers to py32f0xx_hal_flash.o(i.HAL_FLASH_EndOfOperationCallback) for HAL_FLASH_EndOfOperationCallback
+    py32f0xx_hal_flash.o(i.HAL_FLASH_IRQHandler) refers to py32f0xx_hal_flash.o(.bss) for pFlash
+    py32f0xx_hal_flash.o(i.HAL_FLASH_OBProgram) refers to py32f0xx_hal_flash.o(i.FLASH_OB_OptrConfig) for FLASH_OB_OptrConfig
+    py32f0xx_hal_flash.o(i.HAL_FLASH_OBProgram) refers to py32f0xx_hal_flash.o(i.FLASH_OB_GetUser) for FLASH_OB_GetUser
+    py32f0xx_hal_flash.o(i.HAL_FLASH_OBProgram) refers to py32f0xx_hal_flash.o(i.FLASH_OB_GetRDP) for FLASH_OB_GetRDP
+    py32f0xx_hal_flash.o(i.HAL_FLASH_OBProgram) refers to py32f0xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    py32f0xx_hal_flash.o(i.HAL_FLASH_OBProgram) refers to py32f0xx_hal_flash.o(.bss) for pFlash
+    py32f0xx_hal_flash.o(i.HAL_FLASH_OBProgram) refers to py32f0xx_hal_flash.o(.constdata) for _FlashTimmingParam
+    py32f0xx_hal_flash.o(i.HAL_FLASH_OB_RDP_LevelConfig) refers to py32f0xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    py32f0xx_hal_flash.o(i.HAL_FLASH_OB_RDP_LevelConfig) refers to py32f0xx_hal_flash.o(.bss) for pFlash
+    py32f0xx_hal_flash.o(i.HAL_FLASH_PageProgram) refers to py32f0xx_hal_flash.o(i.HAL_FLASH_Program) for HAL_FLASH_Program
+    py32f0xx_hal_flash.o(i.HAL_FLASH_PageProgram_IT) refers to py32f0xx_hal_flash.o(i.HAL_FLASH_Program_IT) for HAL_FLASH_Program_IT
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Program) refers to py32f0xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Program) refers to py32f0xx_hal_flash.o(i.FLASH_Program_Page) for FLASH_Program_Page
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Program) refers to py32f0xx_hal_flash.o(.bss) for pFlash
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Program) refers to py32f0xx_hal_flash.o(.constdata) for _FlashTimmingParam
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Program_IT) refers to py32f0xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Program_IT) refers to py32f0xx_hal_flash.o(i.FLASH_Program_Page) for FLASH_Program_Page
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Program_IT) refers to py32f0xx_hal_flash.o(.bss) for pFlash
+    py32f0xx_hal_flash.o(i.HAL_FLASH_Program_IT) refers to py32f0xx_hal_flash.o(.constdata) for _FlashTimmingParam
+    py32f0xx_hal_tim.o(i.HAL_TIM_Base_DeInit) refers to py32f0xx_hal_tim.o(i.HAL_TIM_Base_MspDeInit) for HAL_TIM_Base_MspDeInit
+    py32f0xx_hal_tim.o(i.HAL_TIM_Base_Init) refers to py32f0xx_hal_tim.o(i.HAL_TIM_Base_MspInit) for HAL_TIM_Base_MspInit
+    py32f0xx_hal_tim.o(i.HAL_TIM_Base_Init) refers to py32f0xx_hal_tim.o(i.TIM_Base_SetConfig) for TIM_Base_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_Base_Start_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT) for HAL_DMA_Start_IT
+    py32f0xx_hal_tim.o(i.HAL_TIM_Base_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMAPeriodElapsedCplt) for TIM_DMAPeriodElapsedCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_Base_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMAPeriodElapsedHalfCplt) for TIM_DMAPeriodElapsedHalfCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_Base_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMAError) for TIM_DMAError
+    py32f0xx_hal_tim.o(i.HAL_TIM_Base_Stop_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT) for HAL_DMA_Abort_IT
+    py32f0xx_hal_tim.o(i.HAL_TIM_ConfigClockSource) refers to py32f0xx_hal_tim.o(i.TIM_ETR_SetConfig) for TIM_ETR_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_ConfigClockSource) refers to py32f0xx_hal_tim.o(i.TIM_TI1_ConfigInputStage) for TIM_TI1_ConfigInputStage
+    py32f0xx_hal_tim.o(i.HAL_TIM_ConfigClockSource) refers to py32f0xx_hal_tim.o(i.TIM_ITRx_SetConfig) for TIM_ITRx_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_ConfigClockSource) refers to py32f0xx_hal_tim.o(i.TIM_TI2_ConfigInputStage) for TIM_TI2_ConfigInputStage
+    py32f0xx_hal_tim.o(i.HAL_TIM_ConfigOCrefClear) refers to py32f0xx_hal_tim.o(i.TIM_ETR_SetConfig) for TIM_ETR_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiReadStart) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT) for HAL_DMA_Start_IT
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiReadStart) refers to py32f0xx_hal_tim.o(i.TIM_DMAPeriodElapsedCplt) for TIM_DMAPeriodElapsedCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiReadStart) refers to py32f0xx_hal_tim.o(i.TIM_DMAPeriodElapsedHalfCplt) for TIM_DMAPeriodElapsedHalfCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiReadStart) refers to py32f0xx_hal_tim.o(i.TIM_DMAError) for TIM_DMAError
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiReadStart) refers to py32f0xx_hal_tim.o(i.TIM_DMACaptureCplt) for TIM_DMACaptureCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiReadStart) refers to py32f0xx_hal_tim.o(i.TIM_DMACaptureHalfCplt) for TIM_DMACaptureHalfCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiReadStart) refers to py32f0xx_hal_tim_ex.o(i.TIMEx_DMACommutationCplt) for TIMEx_DMACommutationCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiReadStart) refers to py32f0xx_hal_tim_ex.o(i.TIMEx_DMACommutationHalfCplt) for TIMEx_DMACommutationHalfCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiReadStart) refers to py32f0xx_hal_tim.o(i.TIM_DMATriggerCplt) for TIM_DMATriggerCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiReadStart) refers to py32f0xx_hal_tim.o(i.TIM_DMATriggerHalfCplt) for TIM_DMATriggerHalfCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiWriteStart) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT) for HAL_DMA_Start_IT
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiWriteStart) refers to py32f0xx_hal_tim.o(i.TIM_DMAPeriodElapsedCplt) for TIM_DMAPeriodElapsedCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiWriteStart) refers to py32f0xx_hal_tim.o(i.TIM_DMAPeriodElapsedHalfCplt) for TIM_DMAPeriodElapsedHalfCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiWriteStart) refers to py32f0xx_hal_tim.o(i.TIM_DMAError) for TIM_DMAError
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiWriteStart) refers to py32f0xx_hal_tim.o(i.TIM_DMADelayPulseCplt) for TIM_DMADelayPulseCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiWriteStart) refers to py32f0xx_hal_tim.o(i.TIM_DMADelayPulseHalfCplt) for TIM_DMADelayPulseHalfCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiWriteStart) refers to py32f0xx_hal_tim_ex.o(i.TIMEx_DMACommutationCplt) for TIMEx_DMACommutationCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiWriteStart) refers to py32f0xx_hal_tim_ex.o(i.TIMEx_DMACommutationHalfCplt) for TIMEx_DMACommutationHalfCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiWriteStart) refers to py32f0xx_hal_tim.o(i.TIM_DMATriggerCplt) for TIM_DMATriggerCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiWriteStart) refers to py32f0xx_hal_tim.o(i.TIM_DMATriggerHalfCplt) for TIM_DMATriggerHalfCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_ReadStart) refers to py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiReadStart) for HAL_TIM_DMABurst_MultiReadStart
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_ReadStop) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT) for HAL_DMA_Abort_IT
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_WriteStart) refers to py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiWriteStart) for HAL_TIM_DMABurst_MultiWriteStart
+    py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_WriteStop) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT) for HAL_DMA_Abort_IT
+    py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_DeInit) refers to py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_MspDeInit) for HAL_TIM_Encoder_MspDeInit
+    py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Init) refers to py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_MspInit) for HAL_TIM_Encoder_MspInit
+    py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Init) refers to py32f0xx_hal_tim.o(i.TIM_Base_SetConfig) for TIM_Base_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Start) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Start_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT) for HAL_DMA_Start_IT
+    py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMACaptureCplt) for TIM_DMACaptureCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMACaptureHalfCplt) for TIM_DMACaptureHalfCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMAError) for TIM_DMAError
+    py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Start_IT) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Stop) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Stop_DMA) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Stop_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT) for HAL_DMA_Abort_IT
+    py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Stop_IT) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_TI1_SetConfig) for TIM_TI1_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_TI2_SetConfig) for TIM_TI2_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_TI3_SetConfig) for TIM_TI3_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_TI4_SetConfig) for TIM_TI4_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_DeInit) refers to py32f0xx_hal_tim.o(i.HAL_TIM_IC_MspDeInit) for HAL_TIM_IC_MspDeInit
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_Init) refers to py32f0xx_hal_tim.o(i.HAL_TIM_IC_MspInit) for HAL_TIM_IC_MspInit
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_Init) refers to py32f0xx_hal_tim.o(i.TIM_Base_SetConfig) for TIM_Base_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_Start) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_Start_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT) for HAL_DMA_Start_IT
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMACaptureCplt) for TIM_DMACaptureCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMACaptureHalfCplt) for TIM_DMACaptureHalfCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMAError) for TIM_DMAError
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_Start_IT) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_Stop) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_Stop_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT) for HAL_DMA_Abort_IT
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_Stop_DMA) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_IC_Stop_IT) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to py32f0xx_hal_tim.o(i.HAL_TIM_IC_CaptureCallback) for HAL_TIM_IC_CaptureCallback
+    py32f0xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to main.o(i.HAL_TIM_OC_DelayElapsedCallback) for HAL_TIM_OC_DelayElapsedCallback
+    py32f0xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to py32f0xx_hal_tim.o(i.HAL_TIM_PWM_PulseFinishedCallback) for HAL_TIM_PWM_PulseFinishedCallback
+    py32f0xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to py32f0xx_hal_tim.o(i.HAL_TIM_PeriodElapsedCallback) for HAL_TIM_PeriodElapsedCallback
+    py32f0xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_BreakCallback) for HAL_TIMEx_BreakCallback
+    py32f0xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to py32f0xx_hal_tim.o(i.HAL_TIM_TriggerCallback) for HAL_TIM_TriggerCallback
+    py32f0xx_hal_tim.o(i.HAL_TIM_IRQHandler) refers to py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_CommutCallback) for HAL_TIMEx_CommutCallback
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_OC1_SetConfig) for TIM_OC1_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_OC2_SetConfig) for TIM_OC2_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_OC3_SetConfig) for TIM_OC3_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_OC4_SetConfig) for TIM_OC4_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_DeInit) refers to py32f0xx_hal_tim.o(i.HAL_TIM_OC_MspDeInit) for HAL_TIM_OC_MspDeInit
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_Init) refers to py32f0xx_hal_tim.o(i.HAL_TIM_OC_MspInit) for HAL_TIM_OC_MspInit
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_Init) refers to py32f0xx_hal_tim.o(i.TIM_Base_SetConfig) for TIM_Base_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_Start) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_Start_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT) for HAL_DMA_Start_IT
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMADelayPulseCplt) for TIM_DMADelayPulseCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMADelayPulseHalfCplt) for TIM_DMADelayPulseHalfCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMAError) for TIM_DMAError
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_Start_IT) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_Stop) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_Stop_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT) for HAL_DMA_Abort_IT
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_Stop_DMA) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_OC_Stop_IT) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_OC1_SetConfig) for TIM_OC1_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_OC2_SetConfig) for TIM_OC2_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_TI1_SetConfig) for TIM_TI1_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_TI2_SetConfig) for TIM_TI2_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_DeInit) refers to py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_MspDeInit) for HAL_TIM_OnePulse_MspDeInit
+    py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_Init) refers to py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_MspInit) for HAL_TIM_OnePulse_MspInit
+    py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_Init) refers to py32f0xx_hal_tim.o(i.TIM_Base_SetConfig) for TIM_Base_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_Start) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_Start_IT) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_Stop) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_Stop_IT) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_OC1_SetConfig) for TIM_OC1_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_OC2_SetConfig) for TIM_OC2_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_OC3_SetConfig) for TIM_OC3_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_ConfigChannel) refers to py32f0xx_hal_tim.o(i.TIM_OC4_SetConfig) for TIM_OC4_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_DeInit) refers to py32f0xx_hal_tim.o(i.HAL_TIM_PWM_MspDeInit) for HAL_TIM_PWM_MspDeInit
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Init) refers to py32f0xx_hal_tim.o(i.HAL_TIM_PWM_MspInit) for HAL_TIM_PWM_MspInit
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Init) refers to py32f0xx_hal_tim.o(i.TIM_Base_SetConfig) for TIM_Base_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Start) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Start_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT) for HAL_DMA_Start_IT
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMADelayPulseCplt) for TIM_DMADelayPulseCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMADelayPulseHalfCplt) for TIM_DMADelayPulseHalfCplt
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMAError) for TIM_DMAError
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Start_IT) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Stop) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Stop_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT) for HAL_DMA_Abort_IT
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Stop_DMA) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Stop_IT) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim.o(i.HAL_TIM_SlaveConfigSynchro) refers to py32f0xx_hal_tim.o(i.TIM_SlaveTimer_SetConfig) for TIM_SlaveTimer_SetConfig
+    py32f0xx_hal_tim.o(i.HAL_TIM_SlaveConfigSynchro_IT) refers to py32f0xx_hal_tim.o(i.TIM_SlaveTimer_SetConfig) for TIM_SlaveTimer_SetConfig
+    py32f0xx_hal_tim.o(i.TIM_DMACaptureCplt) refers to py32f0xx_hal_tim.o(i.HAL_TIM_IC_CaptureCallback) for HAL_TIM_IC_CaptureCallback
+    py32f0xx_hal_tim.o(i.TIM_DMACaptureHalfCplt) refers to py32f0xx_hal_tim.o(i.HAL_TIM_IC_CaptureHalfCpltCallback) for HAL_TIM_IC_CaptureHalfCpltCallback
+    py32f0xx_hal_tim.o(i.TIM_DMADelayPulseCplt) refers to py32f0xx_hal_tim.o(i.HAL_TIM_PWM_PulseFinishedCallback) for HAL_TIM_PWM_PulseFinishedCallback
+    py32f0xx_hal_tim.o(i.TIM_DMADelayPulseHalfCplt) refers to py32f0xx_hal_tim.o(i.HAL_TIM_PWM_PulseFinishedHalfCpltCallback) for HAL_TIM_PWM_PulseFinishedHalfCpltCallback
+    py32f0xx_hal_tim.o(i.TIM_DMAError) refers to py32f0xx_hal_tim.o(i.HAL_TIM_ErrorCallback) for HAL_TIM_ErrorCallback
+    py32f0xx_hal_tim.o(i.TIM_DMAPeriodElapsedCplt) refers to py32f0xx_hal_tim.o(i.HAL_TIM_PeriodElapsedCallback) for HAL_TIM_PeriodElapsedCallback
+    py32f0xx_hal_tim.o(i.TIM_DMAPeriodElapsedHalfCplt) refers to py32f0xx_hal_tim.o(i.HAL_TIM_PeriodElapsedHalfCpltCallback) for HAL_TIM_PeriodElapsedHalfCpltCallback
+    py32f0xx_hal_tim.o(i.TIM_DMATriggerCplt) refers to py32f0xx_hal_tim.o(i.HAL_TIM_TriggerCallback) for HAL_TIM_TriggerCallback
+    py32f0xx_hal_tim.o(i.TIM_DMATriggerHalfCplt) refers to py32f0xx_hal_tim.o(i.HAL_TIM_TriggerHalfCpltCallback) for HAL_TIM_TriggerHalfCpltCallback
+    py32f0xx_hal_tim.o(i.TIM_SlaveTimer_SetConfig) refers to py32f0xx_hal_rcc.o(i.__ARM_common_switch8) for __ARM_common_switch8
+    py32f0xx_hal_tim.o(i.TIM_SlaveTimer_SetConfig) refers to py32f0xx_hal_tim.o(i.TIM_ETR_SetConfig) for TIM_ETR_SetConfig
+    py32f0xx_hal_tim.o(i.TIM_SlaveTimer_SetConfig) refers to py32f0xx_hal_tim.o(i.TIM_TI1_ConfigInputStage) for TIM_TI1_ConfigInputStage
+    py32f0xx_hal_tim.o(i.TIM_SlaveTimer_SetConfig) refers to py32f0xx_hal_tim.o(i.TIM_TI2_ConfigInputStage) for TIM_TI2_ConfigInputStage
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_ConfigCommutEvent_DMA) refers to py32f0xx_hal_tim_ex.o(i.TIMEx_DMACommutationCplt) for TIMEx_DMACommutationCplt
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_ConfigCommutEvent_DMA) refers to py32f0xx_hal_tim_ex.o(i.TIMEx_DMACommutationHalfCplt) for TIMEx_DMACommutationHalfCplt
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_ConfigCommutEvent_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMAError) for TIM_DMAError
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_DeInit) refers to py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_MspDeInit) for HAL_TIMEx_HallSensor_MspDeInit
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Init) refers to py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_MspInit) for HAL_TIMEx_HallSensor_MspInit
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Init) refers to py32f0xx_hal_tim.o(i.TIM_Base_SetConfig) for TIM_Base_SetConfig
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Init) refers to py32f0xx_hal_tim.o(i.TIM_TI1_SetConfig) for TIM_TI1_SetConfig
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Init) refers to py32f0xx_hal_tim.o(i.TIM_OC2_SetConfig) for TIM_OC2_SetConfig
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Start) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Start_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT) for HAL_DMA_Start_IT
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMACaptureCplt) for TIM_DMACaptureCplt
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMACaptureHalfCplt) for TIM_DMACaptureHalfCplt
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMAError) for TIM_DMAError
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Start_IT) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Stop) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Stop_DMA) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Stop_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT) for HAL_DMA_Abort_IT
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Stop_IT) refers to py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd) for TIM_CCxChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Start) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Start_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT) for HAL_DMA_Start_IT
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Start_DMA) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMADelayPulseCplt) for TIM_DMADelayPulseCplt
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMADelayPulseHalfCplt) for TIM_DMADelayPulseHalfCplt
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMAError) for TIM_DMAError
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Start_IT) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Stop) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Stop_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT) for HAL_DMA_Abort_IT
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Stop_DMA) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Stop_IT) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OnePulseN_Start) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OnePulseN_Start_IT) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OnePulseN_Stop) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OnePulseN_Stop_IT) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Start) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Start_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT) for HAL_DMA_Start_IT
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Start_DMA) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMADelayPulseCplt) for TIM_DMADelayPulseCplt
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMADelayPulseHalfCplt) for TIM_DMADelayPulseHalfCplt
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Start_DMA) refers to py32f0xx_hal_tim.o(i.TIM_DMAError) for TIM_DMAError
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Start_IT) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Stop) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Stop_DMA) refers to py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT) for HAL_DMA_Abort_IT
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Stop_DMA) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Stop_IT) refers to py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd) for TIM_CCxNChannelCmd
+    py32f0xx_hal_tim_ex.o(i.TIMEx_DMACommutationCplt) refers to py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_CommutCallback) for HAL_TIMEx_CommutCallback
+    py32f0xx_hal_tim_ex.o(i.TIMEx_DMACommutationHalfCplt) refers to py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_CommutHalfCpltCallback) for HAL_TIMEx_CommutHalfCpltCallback
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000F) for __rt_final_cpp
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$00000011) for __rt_final_exit
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry12b.o(.ARM.Collect$$$$0000000E) for __rt_lib_shutdown_fini
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry8b.o(.ARM.Collect$$$$0000000A) for _main_cpp_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry9a.o(.ARM.Collect$$$$0000000B) for _main_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry5.o(.ARM.Collect$$$$00000004) for _main_scatterload
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry2.o(.ARM.Collect$$$$00000001) for _main_stk
+    entry2.o(.ARM.Collect$$$$00000001) refers to entry2.o(.ARM.Collect$$$$00002712) for __lit__00000000
+    entry2.o(.ARM.Collect$$$$00002712) refers to startup_py32f003xx.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to startup_py32f003xx.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    entry5.o(.ARM.Collect$$$$00000004) refers to init.o(.text) for __scatterload
+    entry9a.o(.ARM.Collect$$$$0000000B) refers to system_py32f0xx.o(i.$Sub$$main) for main
+    entry9b.o(.ARM.Collect$$$$0000000C) refers to system_py32f0xx.o(i.$Sub$$main) for main
+    init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
+
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing system_py32f0xx.o(.rev16_text), (4 bytes).
+    Removing system_py32f0xx.o(.revsh_text), (4 bytes).
+    Removing system_py32f0xx.o(i.SystemCoreClockUpdate), (120 bytes).
+    Removing startup_py32f003xx.o(HEAP), (0 bytes).
+    Removing main.o(.rev16_text), (4 bytes).
+    Removing main.o(.revsh_text), (4 bytes).
+    Removing main.o(i.APP_AdcInit), (252 bytes).
+    Removing py32f0xx_hal_msp.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_msp.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_it.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_it.o(.revsh_text), (4 bytes).
+    Removing py32f003xx_start_kit.o(.rev16_text), (4 bytes).
+    Removing py32f003xx_start_kit.o(.revsh_text), (4 bytes).
+    Removing py32f003xx_start_kit.o(i.BSP_GetVersion), (6 bytes).
+    Removing py32f003xx_start_kit.o(i.BSP_LED_DeInit), (56 bytes).
+    Removing py32f003xx_start_kit.o(i.BSP_LED_Init), (104 bytes).
+    Removing py32f003xx_start_kit.o(i.BSP_LED_Off), (32 bytes).
+    Removing py32f003xx_start_kit.o(i.BSP_LED_On), (32 bytes).
+    Removing py32f003xx_start_kit.o(i.BSP_LED_Toggle), (32 bytes).
+    Removing py32f003xx_start_kit.o(i.BSP_PB_DeInit), (52 bytes).
+    Removing py32f003xx_start_kit.o(i.BSP_PB_GetState), (40 bytes).
+    Removing py32f003xx_start_kit.o(i.BSP_PB_Init), (148 bytes).
+    Removing py32f003xx_start_kit.o(i.BSP_USART_Config), (220 bytes).
+    Removing py32f003xx_start_kit.o(i.fgetc), (28 bytes).
+    Removing py32f003xx_start_kit.o(i.fputc), (28 bytes).
+    Removing py32f003xx_start_kit.o(.bss), (76 bytes).
+    Removing py32f003xx_start_kit.o(.constdata), (5 bytes).
+    Removing py32f003xx_start_kit.o(.data), (8 bytes).
+    Removing py32f0xx_hal.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal.o(i.HAL_DBGMCU_DisableDBGMCUStopMode), (20 bytes).
+    Removing py32f0xx_hal.o(i.HAL_DBGMCU_EnableDBGMCUStopMode), (20 bytes).
+    Removing py32f0xx_hal.o(i.HAL_DeInit), (52 bytes).
+    Removing py32f0xx_hal.o(i.HAL_GetDEVID), (16 bytes).
+    Removing py32f0xx_hal.o(i.HAL_GetHalVersion), (8 bytes).
+    Removing py32f0xx_hal.o(i.HAL_GetREVID), (12 bytes).
+    Removing py32f0xx_hal.o(i.HAL_GetTickFreq), (12 bytes).
+    Removing py32f0xx_hal.o(i.HAL_GetTickPrio), (12 bytes).
+    Removing py32f0xx_hal.o(i.HAL_GetUIDw0), (12 bytes).
+    Removing py32f0xx_hal.o(i.HAL_GetUIDw1), (12 bytes).
+    Removing py32f0xx_hal.o(i.HAL_GetUIDw2), (12 bytes).
+    Removing py32f0xx_hal.o(i.HAL_MspDeInit), (2 bytes).
+    Removing py32f0xx_hal.o(i.HAL_MspInit), (2 bytes).
+    Removing py32f0xx_hal.o(i.HAL_ResumeTick), (20 bytes).
+    Removing py32f0xx_hal.o(i.HAL_SYSCFG_DMA_Req), (16 bytes).
+    Removing py32f0xx_hal.o(i.HAL_SetTickFreq), (44 bytes).
+    Removing py32f0xx_hal.o(i.HAL_SuspendTick), (20 bytes).
+    Removing py32f0xx_hal_cortex.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_cortex.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_cortex.o(i.HAL_NVIC_ClearPendingIRQ), (24 bytes).
+    Removing py32f0xx_hal_cortex.o(i.HAL_NVIC_DisableIRQ), (24 bytes).
+    Removing py32f0xx_hal_cortex.o(i.HAL_NVIC_GetPendingIRQ), (40 bytes).
+    Removing py32f0xx_hal_cortex.o(i.HAL_NVIC_GetPriority), (72 bytes).
+    Removing py32f0xx_hal_cortex.o(i.HAL_NVIC_SetPendingIRQ), (24 bytes).
+    Removing py32f0xx_hal_cortex.o(i.HAL_NVIC_SystemReset), (56 bytes).
+    Removing py32f0xx_hal_cortex.o(i.HAL_SYSTICK_CLKSourceConfig), (36 bytes).
+    Removing py32f0xx_hal_cortex.o(i.HAL_SYSTICK_Callback), (2 bytes).
+    Removing py32f0xx_hal_cortex.o(i.HAL_SYSTICK_IRQHandler), (8 bytes).
+    Removing py32f0xx_hal_rcc.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_rcc.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_rcc.o(i.HAL_RCC_CSSCallback), (2 bytes).
+    Removing py32f0xx_hal_rcc.o(i.HAL_RCC_DeInit), (192 bytes).
+    Removing py32f0xx_hal_rcc.o(i.HAL_RCC_EnableCSS), (20 bytes).
+    Removing py32f0xx_hal_rcc.o(i.HAL_RCC_GetClockConfig), (60 bytes).
+    Removing py32f0xx_hal_rcc.o(i.HAL_RCC_GetHCLKFreq), (12 bytes).
+    Removing py32f0xx_hal_rcc.o(i.HAL_RCC_GetOscConfig), (120 bytes).
+    Removing py32f0xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq), (40 bytes).
+    Removing py32f0xx_hal_rcc.o(i.HAL_RCC_MCOConfig), (408 bytes).
+    Removing py32f0xx_hal_rcc.o(i.HAL_RCC_NMI_IRQHandler), (32 bytes).
+    Removing py32f0xx_hal_rcc_ex.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_rcc_ex.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_rcc_ex.o(i.HAL_RCCEx_EnableLSCO), (104 bytes).
+    Removing py32f0xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPeriphCLKConfig), (100 bytes).
+    Removing py32f0xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPeriphCLKFreq), (236 bytes).
+    Removing py32f0xx_hal_rcc_ex.o(i.HAL_RCCEx_PeriphCLKConfig), (372 bytes).
+    Removing py32f0xx_hal_gpio.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_gpio.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_gpio.o(i.HAL_GPIO_DeInit), (244 bytes).
+    Removing py32f0xx_hal_gpio.o(i.HAL_GPIO_EXTI_Callback), (2 bytes).
+    Removing py32f0xx_hal_gpio.o(i.HAL_GPIO_LockPin), (50 bytes).
+    Removing py32f0xx_hal_gpio.o(i.HAL_GPIO_ReadPin), (18 bytes).
+    Removing py32f0xx_hal_gpio.o(i.HAL_GPIO_TogglePin), (16 bytes).
+    Removing py32f0xx_hal_pwr.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_pwr.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_ConfigBIAS), (60 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_ConfigPVD), (204 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_ConfigStopMode), (48 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_DeInit), (32 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_DisableBkUpAccess), (20 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_DisablePVD), (20 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_DisableSEVOnPend), (20 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_DisableSleepOnExit), (20 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_EnableBkUpAccess), (20 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_EnablePVD), (20 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_EnableSEVOnPend), (20 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_EnableSleepOnExit), (20 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_EnterSLEEPMode), (32 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_EnterSTOPMode), (84 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_PVD_Callback), (2 bytes).
+    Removing py32f0xx_hal_pwr.o(i.HAL_PWR_PVD_IRQHandler), (32 bytes).
+    Removing py32f0xx_hal_dma.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_dma.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_dma.o(i.DMA_SetConfig), (42 bytes).
+    Removing py32f0xx_hal_dma.o(i.HAL_DMA_Abort), (84 bytes).
+    Removing py32f0xx_hal_dma.o(i.HAL_DMA_Abort_IT), (120 bytes).
+    Removing py32f0xx_hal_dma.o(i.HAL_DMA_ChannelMap), (92 bytes).
+    Removing py32f0xx_hal_dma.o(i.HAL_DMA_DeInit), (108 bytes).
+    Removing py32f0xx_hal_dma.o(i.HAL_DMA_GetError), (6 bytes).
+    Removing py32f0xx_hal_dma.o(i.HAL_DMA_GetState), (8 bytes).
+    Removing py32f0xx_hal_dma.o(i.HAL_DMA_IRQHandler), (296 bytes).
+    Removing py32f0xx_hal_dma.o(i.HAL_DMA_Init), (112 bytes).
+    Removing py32f0xx_hal_dma.o(i.HAL_DMA_PollForTransfer), (380 bytes).
+    Removing py32f0xx_hal_dma.o(i.HAL_DMA_RegisterCallback), (92 bytes).
+    Removing py32f0xx_hal_dma.o(i.HAL_DMA_Start), (110 bytes).
+    Removing py32f0xx_hal_dma.o(i.HAL_DMA_Start_IT), (154 bytes).
+    Removing py32f0xx_hal_dma.o(i.HAL_DMA_UnRegisterCallback), (108 bytes).
+    Removing py32f0xx_hal_adc.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_adc.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_adc.o(i.ADC_ConversionStop), (108 bytes).
+    Removing py32f0xx_hal_adc.o(i.ADC_DMAConvCplt), (134 bytes).
+    Removing py32f0xx_hal_adc.o(i.ADC_DMAError), (30 bytes).
+    Removing py32f0xx_hal_adc.o(i.ADC_DMAHalfConvCplt), (14 bytes).
+    Removing py32f0xx_hal_adc.o(i.ADC_Disable), (140 bytes).
+    Removing py32f0xx_hal_adc.o(i.ADC_QuickSort), (58 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_AnalogWDGConfig), (212 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_Calibration_SingleStart), (192 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_Calibration_Start), (100 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_ConfigChannel), (396 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_ConvCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_ConvHalfCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_DeInit), (220 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_ErrorCallback), (2 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_GetCalibStatus), (48 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_GetError), (6 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_GetState), (6 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_IRQHandler), (278 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_Init), (416 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_LevelOutOfWindowCallback), (2 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_MspDeInit), (2 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_MspInit), (2 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_PollForEvent), (138 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_SetCalibration), (96 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_Start_DMA), (188 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_Start_IT), (160 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_Stop), (80 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_Stop_DMA), (136 bytes).
+    Removing py32f0xx_hal_adc.o(i.HAL_ADC_Stop_IT), (92 bytes).
+    Removing py32f0xx_hal_uart.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_uart.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_HalfDuplex_EnableReceiver), (72 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_HalfDuplex_EnableTransmitter), (72 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_HalfDuplex_Init), (116 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_MultiProcessor_EnterMuteMode), (62 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_MultiProcessor_ExitMuteMode), (62 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_MultiProcessor_Init), (166 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_Abort), (176 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_AbortCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_AbortReceive), (106 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_AbortReceiveCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_AbortReceive_IT), (124 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_AbortTransmit), (92 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_AbortTransmitCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_AbortTransmit_IT), (112 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_Abort_IT), (232 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_DMAPause), (130 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_DMAResume), (128 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_DMAStop), (110 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_DeInit), (64 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_ErrorCallback), (2 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_GetError), (6 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_GetState), (20 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_IRQHandler), (424 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_IdleFrameDetectCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_Init), (138 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_MspDeInit), (2 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_MspInit), (2 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_Receive), (228 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_Receive_DMA), (220 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_Receive_IT), (118 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_RxCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_RxHalfCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_SendBreak), (62 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_Transmit), (254 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_Transmit_DMA), (188 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_Transmit_IT), (92 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_TxCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_uart.o(i.HAL_UART_TxHalfCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_AdvFeatureConfig), (56 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_DMAAbortOnError), (20 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_DMAError), (88 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_DMAReceiveCplt), (70 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_DMARxAbortCallback), (56 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_DMARxHalfCplt), (14 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_DMARxOnlyAbortCallback), (24 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_DMATransmitCplt), (54 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_DMATxAbortCallback), (56 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_DMATxHalfCplt), (14 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_DMATxOnlyAbortCallback), (24 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_EndRxTransfer), (34 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_EndTransmit_IT), (32 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_EndTxTransfer), (20 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_Receive_IT), (136 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_SetConfig), (420 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_Transmit_IT), (114 bytes).
+    Removing py32f0xx_hal_uart.o(i.UART_WaitOnFlagUntilTimeout), (112 bytes).
+    Removing py32f0xx_hal_comp.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_comp.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_crc.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_crc.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_exti.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_exti.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_flash.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_flash.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_flash.o(i.FLASH_MassErase), (40 bytes).
+    Removing py32f0xx_hal_flash.o(i.FLASH_OB_GetRDP), (24 bytes).
+    Removing py32f0xx_hal_flash.o(i.FLASH_OB_GetUser), (24 bytes).
+    Removing py32f0xx_hal_flash.o(i.FLASH_OB_OptrConfig), (32 bytes).
+    Removing py32f0xx_hal_flash.o(i.FLASH_PageErase), (32 bytes).
+    Removing py32f0xx_hal_flash.o(i.FLASH_Program_Page), (84 bytes).
+    Removing py32f0xx_hal_flash.o(i.FLASH_SectorErase), (24 bytes).
+    Removing py32f0xx_hal_flash.o(i.FLASH_WaitForLastOperation), (60 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_EndOfOperationCallback), (2 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_Erase), (588 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_Erase_IT), (476 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_GetError), (12 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_IRQHandler), (296 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_Lock), (36 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_OBGetConfig), (80 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_OBProgram), (536 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_OB_Launch), (24 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_OB_Lock), (36 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_OB_RDP_LevelConfig), (124 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_OB_Unlock), (52 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_OperationErrorCallback), (2 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_PageProgram), (18 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_PageProgram_IT), (18 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_Program), (440 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_Program_IT), (420 bytes).
+    Removing py32f0xx_hal_flash.o(i.HAL_FLASH_Unlock), (52 bytes).
+    Removing py32f0xx_hal_flash.o(.bss), (24 bytes).
+    Removing py32f0xx_hal_flash.o(.constdata), (32 bytes).
+    Removing py32f0xx_hal_i2c.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_i2c.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_irda.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_irda.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_iwdg.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_iwdg.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_led.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_led.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_lptim.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_lptim.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_rtc.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_rtc.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_rtc_ex.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_rtc_ex.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_spi.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_spi.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_tim.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_tim.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Base_DeInit), (80 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Base_GetState), (8 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Base_MspDeInit), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Base_Start_DMA), (140 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Base_Start_IT), (42 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Base_Stop), (64 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Base_Stop_DMA), (80 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Base_Stop_IT), (64 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_ConfigClockSource), (272 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_ConfigOCrefClear), (328 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_ConfigTI1Input), (32 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiReadStart), (496 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_MultiWriteStart), (496 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_ReadStart), (36 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_ReadStop), (166 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_WriteStart), (36 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_DMABurst_WriteStop), (166 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_DeInit), (80 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_GetState), (8 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Init), (192 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_MspDeInit), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_MspInit), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Start), (80 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Start_DMA), (396 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Start_IT), (128 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Stop), (112 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Stop_DMA), (192 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_Encoder_Stop_IT), (160 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_ErrorCallback), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_GenerateEvent), (54 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_IC_CaptureHalfCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_IC_ConfigChannel), (226 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_IC_DeInit), (80 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_IC_GetState), (8 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_IC_Init), (56 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_IC_MspDeInit), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_IC_MspInit), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_IC_Start), (44 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_IC_Start_DMA), (356 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_IC_Start_IT), (122 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_IC_Stop), (64 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_IC_Stop_DMA), (180 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_IC_Stop_IT), (144 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OC_DeInit), (80 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OC_DelayElapsedCallback), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OC_GetState), (8 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OC_Init), (56 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OC_MspDeInit), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OC_MspInit), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OC_Start_DMA), (416 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OC_Start_IT), (184 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OC_Stop), (152 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OC_Stop_DMA), (268 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OC_Stop_IT), (232 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_ConfigChannel), (298 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_DeInit), (80 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_GetState), (8 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_Init), (80 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_MspDeInit), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_MspInit), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_Start), (92 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_Start_IT), (116 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_Stop), (164 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_OnePulse_Stop_IT), (188 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_PWM_ConfigChannel), (274 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_PWM_DeInit), (80 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_PWM_GetState), (8 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Init), (56 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_PWM_MspDeInit), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_PWM_MspInit), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_PWM_PulseFinishedHalfCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Start), (104 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Start_DMA), (416 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Start_IT), (184 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Stop), (160 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Stop_DMA), (268 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_PWM_Stop_IT), (232 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_PeriodElapsedHalfCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_ReadCapturedValue), (52 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_SlaveConfigSynchro), (112 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_SlaveConfigSynchro_IT), (112 bytes).
+    Removing py32f0xx_hal_tim.o(i.HAL_TIM_TriggerHalfCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_DMACaptureCplt), (70 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_DMACaptureHalfCplt), (70 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_DMADelayPulseCplt), (70 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_DMADelayPulseHalfCplt), (70 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_DMAError), (20 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_DMAPeriodElapsedCplt), (20 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_DMAPeriodElapsedHalfCplt), (20 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_DMATriggerCplt), (20 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_DMATriggerHalfCplt), (20 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_ETR_SetConfig), (28 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_ITRx_SetConfig), (24 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_SlaveTimer_SetConfig), (176 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_TI1_ConfigInputStage), (50 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_TI1_SetConfig), (96 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_TI2_ConfigInputStage), (50 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_TI2_SetConfig), (72 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_TI3_SetConfig), (70 bytes).
+    Removing py32f0xx_hal_tim.o(i.TIM_TI4_SetConfig), (78 bytes).
+    Removing py32f0xx_hal_tim_ex.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_tim_ex.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_CommutHalfCpltCallback), (2 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_ConfigBreakDeadTime), (140 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_ConfigCommutEvent), (124 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_ConfigCommutEvent_DMA), (168 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_ConfigCommutEvent_IT), (138 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_DeInit), (80 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_GetState), (8 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Init), (212 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_MspDeInit), (2 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_MspInit), (2 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Start), (42 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Start_DMA), (148 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Start_IT), (54 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Stop), (64 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Stop_DMA), (84 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_HallSensor_Stop_IT), (76 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_MasterConfigSynchronization), (120 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Start), (58 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Start_DMA), (304 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Start_IT), (130 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Stop), (108 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Stop_DMA), (196 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OCN_Stop_IT), (196 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OnePulseN_Start), (34 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OnePulseN_Start_IT), (58 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OnePulseN_Stop), (108 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_OnePulseN_Stop_IT), (132 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Start), (58 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Start_DMA), (304 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Start_IT), (130 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Stop), (108 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Stop_DMA), (196 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_PWMN_Stop_IT), (196 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_RemapConfig), (42 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.TIMEx_DMACommutationCplt), (20 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.TIMEx_DMACommutationHalfCplt), (20 bytes).
+    Removing py32f0xx_hal_tim_ex.o(i.TIM_CCxNChannelCmd), (34 bytes).
+    Removing py32f0xx_hal_usart.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_usart.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_wwdg.o(.rev16_text), (4 bytes).
+    Removing py32f0xx_hal_wwdg.o(.revsh_text), (4 bytes).
+    Removing py32f0xx_hal_rcc.o(i.__ARM_common_switch8), (28 bytes).
+
+403 unused section(s) (total 32889 bytes) removed from the image.
+
+==============================================================================
+
+Image Symbol Table
+
+    Local Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry12b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry12a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
+    ../clib/microlib/string/memset.c         0x00000000   Number         0  memseta.o ABSOLUTE
+    ..\..\..\Drivers\BSP\PY32F003xx_Start_Kit\py32f003xx_Start_Kit.c 0x00000000   Number         0  py32f003xx_start_kit.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal.c 0x00000000   Number         0  py32f0xx_hal.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_adc.c 0x00000000   Number         0  py32f0xx_hal_adc.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_comp.c 0x00000000   Number         0  py32f0xx_hal_comp.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_cortex.c 0x00000000   Number         0  py32f0xx_hal_cortex.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_crc.c 0x00000000   Number         0  py32f0xx_hal_crc.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_dma.c 0x00000000   Number         0  py32f0xx_hal_dma.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_exti.c 0x00000000   Number         0  py32f0xx_hal_exti.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_flash.c 0x00000000   Number         0  py32f0xx_hal_flash.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_gpio.c 0x00000000   Number         0  py32f0xx_hal_gpio.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_i2c.c 0x00000000   Number         0  py32f0xx_hal_i2c.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_irda.c 0x00000000   Number         0  py32f0xx_hal_irda.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_iwdg.c 0x00000000   Number         0  py32f0xx_hal_iwdg.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_led.c 0x00000000   Number         0  py32f0xx_hal_led.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_lptim.c 0x00000000   Number         0  py32f0xx_hal_lptim.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_pwr.c 0x00000000   Number         0  py32f0xx_hal_pwr.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_rcc.c 0x00000000   Number         0  py32f0xx_hal_rcc.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_rcc_ex.c 0x00000000   Number         0  py32f0xx_hal_rcc_ex.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_rtc.c 0x00000000   Number         0  py32f0xx_hal_rtc.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_rtc_ex.c 0x00000000   Number         0  py32f0xx_hal_rtc_ex.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_spi.c 0x00000000   Number         0  py32f0xx_hal_spi.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_tim.c 0x00000000   Number         0  py32f0xx_hal_tim.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_tim_ex.c 0x00000000   Number         0  py32f0xx_hal_tim_ex.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_uart.c 0x00000000   Number         0  py32f0xx_hal_uart.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_usart.c 0x00000000   Number         0  py32f0xx_hal_usart.o ABSOLUTE
+    ..\..\..\Drivers\PY32F0xx_HAL_Driver\Src\py32f0xx_hal_wwdg.c 0x00000000   Number         0  py32f0xx_hal_wwdg.o ABSOLUTE
+    ..\Src\main.c                            0x00000000   Number         0  main.o ABSOLUTE
+    ..\Src\py32f0xx_hal_msp.c                0x00000000   Number         0  py32f0xx_hal_msp.o ABSOLUTE
+    ..\Src\py32f0xx_it.c                     0x00000000   Number         0  py32f0xx_it.o ABSOLUTE
+    ..\Src\system_py32f0xx.c                 0x00000000   Number         0  system_py32f0xx.o ABSOLUTE
+    ..\\..\\..\\Drivers\\BSP\\PY32F003xx_Start_Kit\\py32f003xx_Start_Kit.c 0x00000000   Number         0  py32f003xx_start_kit.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal.c 0x00000000   Number         0  py32f0xx_hal.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_adc.c 0x00000000   Number         0  py32f0xx_hal_adc.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_comp.c 0x00000000   Number         0  py32f0xx_hal_comp.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_cortex.c 0x00000000   Number         0  py32f0xx_hal_cortex.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_crc.c 0x00000000   Number         0  py32f0xx_hal_crc.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_dma.c 0x00000000   Number         0  py32f0xx_hal_dma.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_exti.c 0x00000000   Number         0  py32f0xx_hal_exti.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_flash.c 0x00000000   Number         0  py32f0xx_hal_flash.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_gpio.c 0x00000000   Number         0  py32f0xx_hal_gpio.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_i2c.c 0x00000000   Number         0  py32f0xx_hal_i2c.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_irda.c 0x00000000   Number         0  py32f0xx_hal_irda.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_iwdg.c 0x00000000   Number         0  py32f0xx_hal_iwdg.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_led.c 0x00000000   Number         0  py32f0xx_hal_led.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_lptim.c 0x00000000   Number         0  py32f0xx_hal_lptim.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_pwr.c 0x00000000   Number         0  py32f0xx_hal_pwr.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_rcc.c 0x00000000   Number         0  py32f0xx_hal_rcc.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_rcc_ex.c 0x00000000   Number         0  py32f0xx_hal_rcc_ex.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_rtc.c 0x00000000   Number         0  py32f0xx_hal_rtc.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_rtc_ex.c 0x00000000   Number         0  py32f0xx_hal_rtc_ex.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_spi.c 0x00000000   Number         0  py32f0xx_hal_spi.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_tim.c 0x00000000   Number         0  py32f0xx_hal_tim.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_tim_ex.c 0x00000000   Number         0  py32f0xx_hal_tim_ex.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_uart.c 0x00000000   Number         0  py32f0xx_hal_uart.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_usart.c 0x00000000   Number         0  py32f0xx_hal_usart.o ABSOLUTE
+    ..\\..\\..\\Drivers\\PY32F0xx_HAL_Driver\\Src\\py32f0xx_hal_wwdg.c 0x00000000   Number         0  py32f0xx_hal_wwdg.o ABSOLUTE
+    ..\\Src\\main.c                          0x00000000   Number         0  main.o ABSOLUTE
+    ..\\Src\\py32f0xx_hal_msp.c              0x00000000   Number         0  py32f0xx_hal_msp.o ABSOLUTE
+    ..\\Src\\py32f0xx_it.c                   0x00000000   Number         0  py32f0xx_it.o ABSOLUTE
+    ..\\Src\\system_py32f0xx.c               0x00000000   Number         0  system_py32f0xx.o ABSOLUTE
+    dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
+    handlers.s                               0x00000000   Number         0  handlers.o ABSOLUTE
+    init.s                                   0x00000000   Number         0  init.o ABSOLUTE
+    startup_py32f003xx.s                     0x00000000   Number         0  startup_py32f003xx.o ABSOLUTE
+    RESET                                    0x08000000   Section      192  startup_py32f003xx.o(RESET)
+    .ARM.Collect$$$$00000000                 0x080000c0   Section        0  entry.o(.ARM.Collect$$$$00000000)
+    .ARM.Collect$$$$00000001                 0x080000c0   Section        4  entry2.o(.ARM.Collect$$$$00000001)
+    .ARM.Collect$$$$00000004                 0x080000c4   Section        4  entry5.o(.ARM.Collect$$$$00000004)
+    .ARM.Collect$$$$00000008                 0x080000c8   Section        0  entry7b.o(.ARM.Collect$$$$00000008)
+    .ARM.Collect$$$$0000000A                 0x080000c8   Section        0  entry8b.o(.ARM.Collect$$$$0000000A)
+    .ARM.Collect$$$$0000000B                 0x080000c8   Section        8  entry9a.o(.ARM.Collect$$$$0000000B)
+    .ARM.Collect$$$$0000000E                 0x080000d0   Section        4  entry12b.o(.ARM.Collect$$$$0000000E)
+    .ARM.Collect$$$$0000000F                 0x080000d4   Section        0  entry10a.o(.ARM.Collect$$$$0000000F)
+    .ARM.Collect$$$$00000011                 0x080000d4   Section        0  entry11a.o(.ARM.Collect$$$$00000011)
+    .ARM.Collect$$$$00002712                 0x080000d4   Section        4  entry2.o(.ARM.Collect$$$$00002712)
+    __lit__00000000                          0x080000d4   Data           4  entry2.o(.ARM.Collect$$$$00002712)
+    .text                                    0x080000d8   Section       28  startup_py32f003xx.o(.text)
+    .text                                    0x080000f4   Section        0  uidiv.o(.text)
+    .text                                    0x08000120   Section        0  memcpya.o(.text)
+    .text                                    0x08000144   Section        0  memseta.o(.text)
+    .text                                    0x08000168   Section       36  init.o(.text)
+    i.$Sub$$main                             0x0800018c   Section        0  system_py32f0xx.o(i.$Sub$$main)
+    i.ADC_Enable                             0x080001c0   Section        0  py32f0xx_hal_adc.o(i.ADC_Enable)
+    ADC_Enable                               0x080001c1   Thumb Code   110  py32f0xx_hal_adc.o(i.ADC_Enable)
+    i.APP_ConfigureExti                      0x0800023c   Section        0  main.o(i.APP_ConfigureExti)
+    APP_ConfigureExti                        0x0800023d   Thumb Code    86  main.o(i.APP_ConfigureExti)
+    i.APP_ErrorHandler                       0x0800029c   Section        0  main.o(i.APP_ErrorHandler)
+    i.APP_SystemClockConfig                  0x080002a0   Section        0  main.o(i.APP_SystemClockConfig)
+    APP_SystemClockConfig                    0x080002a1   Thumb Code   100  main.o(i.APP_SystemClockConfig)
+    i.EXTI0_1_IRQHandler                     0x08000308   Section        0  main.o(i.EXTI0_1_IRQHandler)
+    i.GPIO_Init                              0x08000314   Section        0  main.o(i.GPIO_Init)
+    i.HAL_ADC_GetValue                       0x0800039c   Section        0  py32f0xx_hal_adc.o(i.HAL_ADC_GetValue)
+    i.HAL_ADC_PollForConversion              0x080003a4   Section        0  py32f0xx_hal_adc.o(i.HAL_ADC_PollForConversion)
+    i.HAL_ADC_Start                          0x08000488   Section        0  py32f0xx_hal_adc.o(i.HAL_ADC_Start)
+    i.HAL_Delay                              0x080004f8   Section        0  py32f0xx_hal.o(i.HAL_Delay)
+    i.HAL_GPIO_EXTI_Callback                 0x08000524   Section        0  main.o(i.HAL_GPIO_EXTI_Callback)
+    i.HAL_GPIO_EXTI_IRQHandler               0x08000528   Section        0  py32f0xx_hal_gpio.o(i.HAL_GPIO_EXTI_IRQHandler)
+    i.HAL_GPIO_Init                          0x08000548   Section        0  py32f0xx_hal_gpio.o(i.HAL_GPIO_Init)
+    i.HAL_GPIO_WritePin                      0x080006fc   Section        0  py32f0xx_hal_gpio.o(i.HAL_GPIO_WritePin)
+    i.HAL_GetTick                            0x08000708   Section        0  py32f0xx_hal.o(i.HAL_GetTick)
+    i.HAL_IncTick                            0x08000714   Section        0  py32f0xx_hal.o(i.HAL_IncTick)
+    i.HAL_Init                               0x0800072c   Section        0  py32f0xx_hal.o(i.HAL_Init)
+    i.HAL_InitTick                           0x08000748   Section        0  py32f0xx_hal.o(i.HAL_InitTick)
+    i.HAL_MspInit                            0x080007a8   Section        0  py32f0xx_hal_msp.o(i.HAL_MspInit)
+    i.HAL_NVIC_EnableIRQ                     0x080007ec   Section        0  py32f0xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ)
+    i.HAL_NVIC_SetPriority                   0x08000804   Section        0  py32f0xx_hal_cortex.o(i.HAL_NVIC_SetPriority)
+    i.HAL_RCC_ClockConfig                    0x08000818   Section        0  py32f0xx_hal_rcc.o(i.HAL_RCC_ClockConfig)
+    i.HAL_RCC_GetSysClockFreq                0x080009bc   Section        0  py32f0xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq)
+    i.HAL_RCC_OscConfig                      0x08000a24   Section        0  py32f0xx_hal_rcc.o(i.HAL_RCC_OscConfig)
+    i.HAL_SYSTICK_Config                     0x08000d38   Section        0  py32f0xx_hal_cortex.o(i.HAL_SYSTICK_Config)
+    i.HAL_TIMEx_BreakCallback                0x08000d70   Section        0  py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_BreakCallback)
+    i.HAL_TIMEx_CommutCallback               0x08000d72   Section        0  py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_CommutCallback)
+    i.HAL_TIM_Base_Init                      0x08000d74   Section        0  py32f0xx_hal_tim.o(i.HAL_TIM_Base_Init)
+    i.HAL_TIM_Base_MspInit                   0x08000dac   Section        0  py32f0xx_hal_tim.o(i.HAL_TIM_Base_MspInit)
+    i.HAL_TIM_Base_Start                     0x08000dae   Section        0  py32f0xx_hal_tim.o(i.HAL_TIM_Base_Start)
+    i.HAL_TIM_IC_CaptureCallback             0x08000dd8   Section        0  py32f0xx_hal_tim.o(i.HAL_TIM_IC_CaptureCallback)
+    i.HAL_TIM_IRQHandler                     0x08000dda   Section        0  py32f0xx_hal_tim.o(i.HAL_TIM_IRQHandler)
+    i.HAL_TIM_OC_ConfigChannel               0x08000fa2   Section        0  py32f0xx_hal_tim.o(i.HAL_TIM_OC_ConfigChannel)
+    i.HAL_TIM_OC_DelayElapsedCallback        0x08001018   Section        0  main.o(i.HAL_TIM_OC_DelayElapsedCallback)
+    i.HAL_TIM_OC_Start                       0x0800101c   Section        0  py32f0xx_hal_tim.o(i.HAL_TIM_OC_Start)
+    i.HAL_TIM_PWM_PulseFinishedCallback      0x08001084   Section        0  py32f0xx_hal_tim.o(i.HAL_TIM_PWM_PulseFinishedCallback)
+    i.HAL_TIM_PeriodElapsedCallback          0x08001086   Section        0  py32f0xx_hal_tim.o(i.HAL_TIM_PeriodElapsedCallback)
+    i.HAL_TIM_TriggerCallback                0x08001088   Section        0  py32f0xx_hal_tim.o(i.HAL_TIM_TriggerCallback)
+    i.HardFault_Handler                      0x0800108a   Section        0  py32f0xx_it.o(i.HardFault_Handler)
+    i.NMI_Handler                            0x0800108e   Section        0  py32f0xx_it.o(i.NMI_Handler)
+    i.NVIC_SetPriority                       0x08001090   Section        0  py32f0xx_hal_cortex.o(i.NVIC_SetPriority)
+    NVIC_SetPriority                         0x08001091   Thumb Code   110  py32f0xx_hal_cortex.o(i.NVIC_SetPriority)
+    i.PendSV_Handler                         0x08001108   Section        0  py32f0xx_it.o(i.PendSV_Handler)
+    i.SVC_Handler                            0x0800110a   Section        0  py32f0xx_it.o(i.SVC_Handler)
+    i.SysTick_Handler                        0x0800110c   Section        0  py32f0xx_it.o(i.SysTick_Handler)
+    i.SystemInit                             0x08001114   Section        0  system_py32f0xx.o(i.SystemInit)
+    i.TIM3_IRQHandler                        0x08001160   Section        0  main.o(i.TIM3_IRQHandler)
+    i.TIM_Base_SetConfig                     0x08001170   Section        0  py32f0xx_hal_tim.o(i.TIM_Base_SetConfig)
+    i.TIM_CCxChannelCmd                      0x08001200   Section        0  py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd)
+    i.TIM_OC1_SetConfig                      0x08001224   Section        0  py32f0xx_hal_tim.o(i.TIM_OC1_SetConfig)
+    TIM_OC1_SetConfig                        0x08001225   Thumb Code   144  py32f0xx_hal_tim.o(i.TIM_OC1_SetConfig)
+    i.TIM_OC2_SetConfig                      0x080012c0   Section        0  py32f0xx_hal_tim.o(i.TIM_OC2_SetConfig)
+    i.TIM_OC3_SetConfig                      0x08001370   Section        0  py32f0xx_hal_tim.o(i.TIM_OC3_SetConfig)
+    TIM_OC3_SetConfig                        0x08001371   Thumb Code   158  py32f0xx_hal_tim.o(i.TIM_OC3_SetConfig)
+    i.TIM_OC4_SetConfig                      0x0800141c   Section        0  py32f0xx_hal_tim.o(i.TIM_OC4_SetConfig)
+    TIM_OC4_SetConfig                        0x0800141d   Thumb Code   106  py32f0xx_hal_tim.o(i.TIM_OC4_SetConfig)
+    i.TMR3_OC_Init                           0x08001494   Section        0  main.o(i.TMR3_OC_Init)
+    TMR3_OC_Init                             0x08001495   Thumb Code   190  main.o(i.TMR3_OC_Init)
+    i.__scatterload_copy                     0x08001568   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x08001576   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x08001578   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i.main                                   0x08001588   Section        0  main.o(i.main)
+    .constdata                               0x080015dc   Section      128  system_py32f0xx.o(.constdata)
+    .constdata                               0x0800165c   Section       20  py32f0xx_hal_rcc.o(.constdata)
+    .ARM.__at_0x20000000                     0x20000000   Section      192  system_py32f0xx.o(.ARM.__at_0x20000000)
+    .data                                    0x200000c0   Section        4  system_py32f0xx.o(.data)
+    .data                                    0x200000c4   Section       12  py32f0xx_hal.o(.data)
+    .bss                                     0x200000d0   Section      188  main.o(.bss)
+    STACK                                    0x20000190   Section     1024  startup_py32f003xx.o(STACK)
+
+    Global Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    BuildAttributes$$THM_ISAv3M$S$PE$A:L22$X:L11$S22$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$EBA8$MICROLIB$REQ8$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+    __ARM_use_no_argv                        0x00000000   Number         0  main.o ABSOLUTE
+    __arm_fini_                               - Undefined Weak Reference
+    __cpp_initialize__aeabi_                  - Undefined Weak Reference
+    __cxa_finalize                            - Undefined Weak Reference
+    __decompress                              - Undefined Weak Reference
+    _clock_init                               - Undefined Weak Reference
+    _microlib_exit                            - Undefined Weak Reference
+    __Vectors_Size                           0x000000c0   Number         0  startup_py32f003xx.o ABSOLUTE
+    __Vectors                                0x08000000   Data           4  startup_py32f003xx.o(RESET)
+    __Vectors_End                            0x080000c0   Data           0  startup_py32f003xx.o(RESET)
+    __main                                   0x080000c1   Thumb Code     0  entry.o(.ARM.Collect$$$$00000000)
+    _main_stk                                0x080000c1   Thumb Code     0  entry2.o(.ARM.Collect$$$$00000001)
+    _main_scatterload                        0x080000c5   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
+    __main_after_scatterload                 0x080000c9   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
+    _main_clock                              0x080000c9   Thumb Code     0  entry7b.o(.ARM.Collect$$$$00000008)
+    _main_cpp_init                           0x080000c9   Thumb Code     0  entry8b.o(.ARM.Collect$$$$0000000A)
+    _main_init                               0x080000c9   Thumb Code     0  entry9a.o(.ARM.Collect$$$$0000000B)
+    __rt_lib_shutdown_fini                   0x080000d1   Thumb Code     0  entry12b.o(.ARM.Collect$$$$0000000E)
+    __rt_final_cpp                           0x080000d5   Thumb Code     0  entry10a.o(.ARM.Collect$$$$0000000F)
+    __rt_final_exit                          0x080000d5   Thumb Code     0  entry11a.o(.ARM.Collect$$$$00000011)
+    Reset_Handler                            0x080000d9   Thumb Code     8  startup_py32f003xx.o(.text)
+    ADC_COMP_IRQHandler                      0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    DMA1_Channel1_IRQHandler                 0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    DMA1_Channel2_3_IRQHandler               0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    EXTI2_3_IRQHandler                       0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    EXTI4_15_IRQHandler                      0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    FLASH_IRQHandler                         0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    I2C1_IRQHandler                          0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    LPTIM1_IRQHandler                        0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    PVD_IRQHandler                           0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    RCC_IRQHandler                           0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    RTC_IRQHandler                           0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    SPI1_IRQHandler                          0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    TIM14_IRQHandler                         0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    TIM16_IRQHandler                         0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    TIM17_IRQHandler                         0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    TIM1_BRK_UP_TRG_COM_IRQHandler           0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    TIM1_CC_IRQHandler                       0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    USART1_IRQHandler                        0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    USART2_IRQHandler                        0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    WWDG_IRQHandler                          0x080000eb   Thumb Code     0  startup_py32f003xx.o(.text)
+    __aeabi_uidiv                            0x080000f5   Thumb Code     0  uidiv.o(.text)
+    __aeabi_uidivmod                         0x080000f5   Thumb Code    44  uidiv.o(.text)
+    __aeabi_memcpy                           0x08000121   Thumb Code    36  memcpya.o(.text)
+    __aeabi_memcpy4                          0x08000121   Thumb Code     0  memcpya.o(.text)
+    __aeabi_memcpy8                          0x08000121   Thumb Code     0  memcpya.o(.text)
+    __aeabi_memset                           0x08000145   Thumb Code    14  memseta.o(.text)
+    __aeabi_memset4                          0x08000145   Thumb Code     0  memseta.o(.text)
+    __aeabi_memset8                          0x08000145   Thumb Code     0  memseta.o(.text)
+    __aeabi_memclr                           0x08000153   Thumb Code     4  memseta.o(.text)
+    __aeabi_memclr4                          0x08000153   Thumb Code     0  memseta.o(.text)
+    __aeabi_memclr8                          0x08000153   Thumb Code     0  memseta.o(.text)
+    _memset$wrapper                          0x08000157   Thumb Code    18  memseta.o(.text)
+    __scatterload                            0x08000169   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x08000169   Thumb Code     0  init.o(.text)
+    main                                     0x0800018d   Thumb Code    44  system_py32f0xx.o(i.$Sub$$main)
+    APP_ErrorHandler                         0x0800029d   Thumb Code     4  main.o(i.APP_ErrorHandler)
+    EXTI0_1_IRQHandler                       0x08000309   Thumb Code    10  main.o(i.EXTI0_1_IRQHandler)
+    GPIO_Init                                0x08000315   Thumb Code   126  main.o(i.GPIO_Init)
+    HAL_ADC_GetValue                         0x0800039d   Thumb Code     8  py32f0xx_hal_adc.o(i.HAL_ADC_GetValue)
+    HAL_ADC_PollForConversion                0x080003a5   Thumb Code   228  py32f0xx_hal_adc.o(i.HAL_ADC_PollForConversion)
+    HAL_ADC_Start                            0x08000489   Thumb Code   108  py32f0xx_hal_adc.o(i.HAL_ADC_Start)
+    HAL_Delay                                0x080004f9   Thumb Code    38  py32f0xx_hal.o(i.HAL_Delay)
+    HAL_GPIO_EXTI_Callback                   0x08000525   Thumb Code     2  main.o(i.HAL_GPIO_EXTI_Callback)
+    HAL_GPIO_EXTI_IRQHandler                 0x08000529   Thumb Code    26  py32f0xx_hal_gpio.o(i.HAL_GPIO_EXTI_IRQHandler)
+    HAL_GPIO_Init                            0x08000549   Thumb Code   428  py32f0xx_hal_gpio.o(i.HAL_GPIO_Init)
+    HAL_GPIO_WritePin                        0x080006fd   Thumb Code    12  py32f0xx_hal_gpio.o(i.HAL_GPIO_WritePin)
+    HAL_GetTick                              0x08000709   Thumb Code     6  py32f0xx_hal.o(i.HAL_GetTick)
+    HAL_IncTick                              0x08000715   Thumb Code    16  py32f0xx_hal.o(i.HAL_IncTick)
+    HAL_Init                                 0x0800072d   Thumb Code    26  py32f0xx_hal.o(i.HAL_Init)
+    HAL_InitTick                             0x08000749   Thumb Code    82  py32f0xx_hal.o(i.HAL_InitTick)
+    HAL_MspInit                              0x080007a9   Thumb Code    64  py32f0xx_hal_msp.o(i.HAL_MspInit)
+    HAL_NVIC_EnableIRQ                       0x080007ed   Thumb Code    18  py32f0xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ)
+    HAL_NVIC_SetPriority                     0x08000805   Thumb Code    18  py32f0xx_hal_cortex.o(i.HAL_NVIC_SetPriority)
+    HAL_RCC_ClockConfig                      0x08000819   Thumb Code   394  py32f0xx_hal_rcc.o(i.HAL_RCC_ClockConfig)
+    HAL_RCC_GetSysClockFreq                  0x080009bd   Thumb Code    92  py32f0xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq)
+    HAL_RCC_OscConfig                        0x08000a25   Thumb Code   770  py32f0xx_hal_rcc.o(i.HAL_RCC_OscConfig)
+    HAL_SYSTICK_Config                       0x08000d39   Thumb Code    46  py32f0xx_hal_cortex.o(i.HAL_SYSTICK_Config)
+    HAL_TIMEx_BreakCallback                  0x08000d71   Thumb Code     2  py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_BreakCallback)
+    HAL_TIMEx_CommutCallback                 0x08000d73   Thumb Code     2  py32f0xx_hal_tim_ex.o(i.HAL_TIMEx_CommutCallback)
+    HAL_TIM_Base_Init                        0x08000d75   Thumb Code    56  py32f0xx_hal_tim.o(i.HAL_TIM_Base_Init)
+    HAL_TIM_Base_MspInit                     0x08000dad   Thumb Code     2  py32f0xx_hal_tim.o(i.HAL_TIM_Base_MspInit)
+    HAL_TIM_Base_Start                       0x08000daf   Thumb Code    42  py32f0xx_hal_tim.o(i.HAL_TIM_Base_Start)
+    HAL_TIM_IC_CaptureCallback               0x08000dd9   Thumb Code     2  py32f0xx_hal_tim.o(i.HAL_TIM_IC_CaptureCallback)
+    HAL_TIM_IRQHandler                       0x08000ddb   Thumb Code   456  py32f0xx_hal_tim.o(i.HAL_TIM_IRQHandler)
+    HAL_TIM_OC_ConfigChannel                 0x08000fa3   Thumb Code   118  py32f0xx_hal_tim.o(i.HAL_TIM_OC_ConfigChannel)
+    HAL_TIM_OC_DelayElapsedCallback          0x08001019   Thumb Code     2  main.o(i.HAL_TIM_OC_DelayElapsedCallback)
+    HAL_TIM_OC_Start                         0x0800101d   Thumb Code    92  py32f0xx_hal_tim.o(i.HAL_TIM_OC_Start)
+    HAL_TIM_PWM_PulseFinishedCallback        0x08001085   Thumb Code     2  py32f0xx_hal_tim.o(i.HAL_TIM_PWM_PulseFinishedCallback)
+    HAL_TIM_PeriodElapsedCallback            0x08001087   Thumb Code     2  py32f0xx_hal_tim.o(i.HAL_TIM_PeriodElapsedCallback)
+    HAL_TIM_TriggerCallback                  0x08001089   Thumb Code     2  py32f0xx_hal_tim.o(i.HAL_TIM_TriggerCallback)
+    HardFault_Handler                        0x0800108b   Thumb Code     4  py32f0xx_it.o(i.HardFault_Handler)
+    NMI_Handler                              0x0800108f   Thumb Code     2  py32f0xx_it.o(i.NMI_Handler)
+    PendSV_Handler                           0x08001109   Thumb Code     2  py32f0xx_it.o(i.PendSV_Handler)
+    SVC_Handler                              0x0800110b   Thumb Code     2  py32f0xx_it.o(i.SVC_Handler)
+    SysTick_Handler                          0x0800110d   Thumb Code     8  py32f0xx_it.o(i.SysTick_Handler)
+    SystemInit                               0x08001115   Thumb Code    60  system_py32f0xx.o(i.SystemInit)
+    TIM3_IRQHandler                          0x08001161   Thumb Code    10  main.o(i.TIM3_IRQHandler)
+    TIM_Base_SetConfig                       0x08001171   Thumb Code   122  py32f0xx_hal_tim.o(i.TIM_Base_SetConfig)
+    TIM_CCxChannelCmd                        0x08001201   Thumb Code    34  py32f0xx_hal_tim.o(i.TIM_CCxChannelCmd)
+    TIM_OC2_SetConfig                        0x080012c1   Thumb Code   162  py32f0xx_hal_tim.o(i.TIM_OC2_SetConfig)
+    __scatterload_copy                       0x08001569   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x08001577   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x08001579   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    $Super$$main                             0x08001589   Thumb Code    70  main.o(i.main)
+    AHBPrescTable                            0x080015dc   Data          64  system_py32f0xx.o(.constdata)
+    APBPrescTable                            0x0800161c   Data          32  system_py32f0xx.o(.constdata)
+    HSIFreqTable                             0x0800163c   Data          32  system_py32f0xx.o(.constdata)
+    Region$$Table$$Base                      0x08001670   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08001690   Number         0  anon$$obj.o(Region$$Table)
+    VECT_SRAM_TAB                            0x20000000   Data         192  system_py32f0xx.o(.ARM.__at_0x20000000)
+    SystemCoreClock                          0x200000c0   Data           4  system_py32f0xx.o(.data)
+    uwTick                                   0x200000c4   Data           4  py32f0xx_hal.o(.data)
+    uwTickPrio                               0x200000c8   Data           4  py32f0xx_hal.o(.data)
+    uwTickFreq                               0x200000cc   Data           4  py32f0xx_hal.o(.data)
+    AdcHandle                                0x200000d0   Data          64  main.o(.bss)
+    adc_value                                0x20000110   Data          12  main.o(.bss)
+    TimHandle                                0x2000011c   Data          64  main.o(.bss)
+    sConfig                                  0x2000015c   Data          28  main.o(.bss)
+    GPIO_InitStruct                          0x20000178   Data          20  main.o(.bss)
+    __initial_sp                             0x20000590   Data           0  startup_py32f003xx.o(STACK)
+
+
+
+==============================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x080000c1
+
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00001760, Max: 0x00008000, ABSOLUTE)
+
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00001690, Max: 0x00008000, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x08000000   0x08000000   0x000000c0   Data   RO          121    RESET               startup_py32f003xx.o
+    0x080000c0   0x080000c0   0x00000000   Code   RO         2856  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
+    0x080000c0   0x080000c0   0x00000004   Code   RO         2867    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
+    0x080000c4   0x080000c4   0x00000004   Code   RO         2870    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
+    0x080000c8   0x080000c8   0x00000000   Code   RO         2872    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
+    0x080000c8   0x080000c8   0x00000000   Code   RO         2874    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
+    0x080000c8   0x080000c8   0x00000008   Code   RO         2875    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
+    0x080000d0   0x080000d0   0x00000004   Code   RO         2882    .ARM.Collect$$$$0000000E  mc_p.l(entry12b.o)
+    0x080000d4   0x080000d4   0x00000000   Code   RO         2877    .ARM.Collect$$$$0000000F  mc_p.l(entry10a.o)
+    0x080000d4   0x080000d4   0x00000000   Code   RO         2879    .ARM.Collect$$$$00000011  mc_p.l(entry11a.o)
+    0x080000d4   0x080000d4   0x00000004   Code   RO         2868    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
+    0x080000d8   0x080000d8   0x0000001c   Code   RO          122    .text               startup_py32f003xx.o
+    0x080000f4   0x080000f4   0x0000002c   Code   RO         2859    .text               mc_p.l(uidiv.o)
+    0x08000120   0x08000120   0x00000024   Code   RO         2861    .text               mc_p.l(memcpya.o)
+    0x08000144   0x08000144   0x00000024   Code   RO         2863    .text               mc_p.l(memseta.o)
+    0x08000168   0x08000168   0x00000024   Code   RO         2883    .text               mc_p.l(init.o)
+    0x0800018c   0x0800018c   0x00000034   Code   RO            3    i.$Sub$$main        system_py32f0xx.o
+    0x080001c0   0x080001c0   0x0000007c   Code   RO         1026    i.ADC_Enable        py32f0xx_hal_adc.o
+    0x0800023c   0x0800023c   0x00000060   Code   RO          129    i.APP_ConfigureExti  main.o
+    0x0800029c   0x0800029c   0x00000004   Code   RO          130    i.APP_ErrorHandler  main.o
+    0x080002a0   0x080002a0   0x00000068   Code   RO          131    i.APP_SystemClockConfig  main.o
+    0x08000308   0x08000308   0x0000000a   Code   RO          132    i.EXTI0_1_IRQHandler  main.o
+    0x08000312   0x08000312   0x00000002   PAD
+    0x08000314   0x08000314   0x00000088   Code   RO          133    i.GPIO_Init         main.o
+    0x0800039c   0x0800039c   0x00000008   Code   RO         1039    i.HAL_ADC_GetValue  py32f0xx_hal_adc.o
+    0x080003a4   0x080003a4   0x000000e4   Code   RO         1045    i.HAL_ADC_PollForConversion  py32f0xx_hal_adc.o
+    0x08000488   0x08000488   0x00000070   Code   RO         1048    i.HAL_ADC_Start     py32f0xx_hal_adc.o
+    0x080004f8   0x080004f8   0x0000002c   Code   RO          382    i.HAL_Delay         py32f0xx_hal.o
+    0x08000524   0x08000524   0x00000002   Code   RO          134    i.HAL_GPIO_EXTI_Callback  main.o
+    0x08000526   0x08000526   0x00000002   PAD
+    0x08000528   0x08000528   0x00000020   Code   RO          754    i.HAL_GPIO_EXTI_IRQHandler  py32f0xx_hal_gpio.o
+    0x08000548   0x08000548   0x000001b4   Code   RO          755    i.HAL_GPIO_Init     py32f0xx_hal_gpio.o
+    0x080006fc   0x080006fc   0x0000000c   Code   RO          759    i.HAL_GPIO_WritePin  py32f0xx_hal_gpio.o
+    0x08000708   0x08000708   0x0000000c   Code   RO          386    i.HAL_GetTick       py32f0xx_hal.o
+    0x08000714   0x08000714   0x00000018   Code   RO          392    i.HAL_IncTick       py32f0xx_hal.o
+    0x0800072c   0x0800072c   0x0000001a   Code   RO          393    i.HAL_Init          py32f0xx_hal.o
+    0x08000746   0x08000746   0x00000002   PAD
+    0x08000748   0x08000748   0x00000060   Code   RO          394    i.HAL_InitTick      py32f0xx_hal.o
+    0x080007a8   0x080007a8   0x00000044   Code   RO          218    i.HAL_MspInit       py32f0xx_hal_msp.o
+    0x080007ec   0x080007ec   0x00000018   Code   RO          533    i.HAL_NVIC_EnableIRQ  py32f0xx_hal_cortex.o
+    0x08000804   0x08000804   0x00000012   Code   RO          537    i.HAL_NVIC_SetPriority  py32f0xx_hal_cortex.o
+    0x08000816   0x08000816   0x00000002   PAD
+    0x08000818   0x08000818   0x000001a4   Code   RO          626    i.HAL_RCC_ClockConfig  py32f0xx_hal_rcc.o
+    0x080009bc   0x080009bc   0x00000068   Code   RO          633    i.HAL_RCC_GetSysClockFreq  py32f0xx_hal_rcc.o
+    0x08000a24   0x08000a24   0x00000314   Code   RO          636    i.HAL_RCC_OscConfig  py32f0xx_hal_rcc.o
+    0x08000d38   0x08000d38   0x00000038   Code   RO          541    i.HAL_SYSTICK_Config  py32f0xx_hal_cortex.o
+    0x08000d70   0x08000d70   0x00000002   Code   RO         2583    i.HAL_TIMEx_BreakCallback  py32f0xx_hal_tim_ex.o
+    0x08000d72   0x08000d72   0x00000002   Code   RO         2584    i.HAL_TIMEx_CommutCallback  py32f0xx_hal_tim_ex.o
+    0x08000d74   0x08000d74   0x00000038   Code   RO         1889    i.HAL_TIM_Base_Init  py32f0xx_hal_tim.o
+    0x08000dac   0x08000dac   0x00000002   Code   RO         1891    i.HAL_TIM_Base_MspInit  py32f0xx_hal_tim.o
+    0x08000dae   0x08000dae   0x0000002a   Code   RO         1892    i.HAL_TIM_Base_Start  py32f0xx_hal_tim.o
+    0x08000dd8   0x08000dd8   0x00000002   Code   RO         1920    i.HAL_TIM_IC_CaptureCallback  py32f0xx_hal_tim.o
+    0x08000dda   0x08000dda   0x000001c8   Code   RO         1934    i.HAL_TIM_IRQHandler  py32f0xx_hal_tim.o
+    0x08000fa2   0x08000fa2   0x00000076   Code   RO         1935    i.HAL_TIM_OC_ConfigChannel  py32f0xx_hal_tim.o
+    0x08001018   0x08001018   0x00000002   Code   RO          135    i.HAL_TIM_OC_DelayElapsedCallback  main.o
+    0x0800101a   0x0800101a   0x00000002   PAD
+    0x0800101c   0x0800101c   0x00000068   Code   RO         1942    i.HAL_TIM_OC_Start  py32f0xx_hal_tim.o
+    0x08001084   0x08001084   0x00000002   Code   RO         1964    i.HAL_TIM_PWM_PulseFinishedCallback  py32f0xx_hal_tim.o
+    0x08001086   0x08001086   0x00000002   Code   RO         1972    i.HAL_TIM_PeriodElapsedCallback  py32f0xx_hal_tim.o
+    0x08001088   0x08001088   0x00000002   Code   RO         1977    i.HAL_TIM_TriggerCallback  py32f0xx_hal_tim.o
+    0x0800108a   0x0800108a   0x00000004   Code   RO          238    i.HardFault_Handler  py32f0xx_it.o
+    0x0800108e   0x0800108e   0x00000002   Code   RO          239    i.NMI_Handler       py32f0xx_it.o
+    0x08001090   0x08001090   0x00000078   Code   RO          543    i.NVIC_SetPriority  py32f0xx_hal_cortex.o
+    0x08001108   0x08001108   0x00000002   Code   RO          240    i.PendSV_Handler    py32f0xx_it.o
+    0x0800110a   0x0800110a   0x00000002   Code   RO          241    i.SVC_Handler       py32f0xx_it.o
+    0x0800110c   0x0800110c   0x00000008   Code   RO          242    i.SysTick_Handler   py32f0xx_it.o
+    0x08001114   0x08001114   0x0000004c   Code   RO            5    i.SystemInit        system_py32f0xx.o
+    0x08001160   0x08001160   0x00000010   Code   RO          136    i.TIM3_IRQHandler   main.o
+    0x08001170   0x08001170   0x00000090   Code   RO         1979    i.TIM_Base_SetConfig  py32f0xx_hal_tim.o
+    0x08001200   0x08001200   0x00000022   Code   RO         1980    i.TIM_CCxChannelCmd  py32f0xx_hal_tim.o
+    0x08001222   0x08001222   0x00000002   PAD
+    0x08001224   0x08001224   0x0000009c   Code   RO         1992    i.TIM_OC1_SetConfig  py32f0xx_hal_tim.o
+    0x080012c0   0x080012c0   0x000000b0   Code   RO         1993    i.TIM_OC2_SetConfig  py32f0xx_hal_tim.o
+    0x08001370   0x08001370   0x000000ac   Code   RO         1994    i.TIM_OC3_SetConfig  py32f0xx_hal_tim.o
+    0x0800141c   0x0800141c   0x00000078   Code   RO         1995    i.TIM_OC4_SetConfig  py32f0xx_hal_tim.o
+    0x08001494   0x08001494   0x000000d4   Code   RO          137    i.TMR3_OC_Init      main.o
+    0x08001568   0x08001568   0x0000000e   Code   RO         2887    i.__scatterload_copy  mc_p.l(handlers.o)
+    0x08001576   0x08001576   0x00000002   Code   RO         2888    i.__scatterload_null  mc_p.l(handlers.o)
+    0x08001578   0x08001578   0x0000000e   Code   RO         2889    i.__scatterload_zeroinit  mc_p.l(handlers.o)
+    0x08001586   0x08001586   0x00000002   PAD
+    0x08001588   0x08001588   0x00000054   Code   RO          138    i.main              main.o
+    0x080015dc   0x080015dc   0x00000080   Data   RO            7    .constdata          system_py32f0xx.o
+    0x0800165c   0x0800165c   0x00000014   Data   RO          637    .constdata          py32f0xx_hal_rcc.o
+    0x08001670   0x08001670   0x00000020   Data   RO         2885    Region$$Table       anon$$obj.o
+
+
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08001690, Size: 0x00000590, Max: 0x00001000, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x08001690   0x000000c0   Data   RW            6    .ARM.__at_0x20000000  system_py32f0xx.o
+    0x200000c0   0x08001750   0x00000004   Data   RW            8    .data               system_py32f0xx.o
+    0x200000c4   0x08001754   0x0000000c   Data   RW          401    .data               py32f0xx_hal.o
+    0x200000d0        -       0x000000bc   Zero   RW          139    .bss                main.o
+    0x2000018c   0x08001760   0x00000004   PAD
+    0x20000190        -       0x00000400   Zero   RW          119    STACK               startup_py32f003xx.o
+
+
+==============================================================================
+
+Image component sizes
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
+
+       666         66          0          0        188       6320   main.o
+       202         34          0         12          0       4309   py32f0xx_hal.o
+       472         18          0          0          0       3843   py32f0xx_hal_adc.o
+       218         26          0          0          0       9533   py32f0xx_hal_cortex.o
+       480         14          0          0          0       3087   py32f0xx_hal_gpio.o
+        68          4          0          0          0        926   py32f0xx_hal_msp.o
+      1312         56         20          0          0       3828   py32f0xx_hal_rcc.o
+      1588         88          0          0          0      12187   py32f0xx_hal_tim.o
+         4          0          0          0          0       1733   py32f0xx_hal_tim_ex.o
+        18          0          0          0          0       2407   py32f0xx_it.o
+        28          8        192          0       1024        664   startup_py32f003xx.o
+       128         24        128        196          0     239691   system_py32f0xx.o
+
+    ----------------------------------------------------------------------
+      5196        338        372        208       1216     288528   Object Totals
+         0          0         32          0          0          0   (incl. Generated)
+        12          0          0          0          4          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Member Name
+
+         0          0          0          0          0          0   entry.o
+         0          0          0          0          0          0   entry10a.o
+         0          0          0          0          0          0   entry11a.o
+         4          0          0          0          0          0   entry12b.o
+         8          4          0          0          0          0   entry2.o
+         4          0          0          0          0          0   entry5.o
+         0          0          0          0          0          0   entry7b.o
+         0          0          0          0          0          0   entry8b.o
+         8          4          0          0          0          0   entry9a.o
+        30          0          0          0          0          0   handlers.o
+        36          8          0          0          0         68   init.o
+        36          0          0          0          0         60   memcpya.o
+        36          0          0          0          0        100   memseta.o
+        44          0          0          0          0         72   uidiv.o
+
+    ----------------------------------------------------------------------
+       208         16          0          0          0        300   Library Totals
+         2          0          0          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
+
+       206         16          0          0          0        300   mc_p.l
+
+    ----------------------------------------------------------------------
+       208         16          0          0          0        300   Library Totals
+
+    ----------------------------------------------------------------------
+
+==============================================================================
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
+
+      5404        354        372        208       1216     286736   Grand Totals
+      5404        354        372        208       1216     286736   ELF Image Totals
+      5404        354        372        208          0          0   ROM Totals
+
+==============================================================================
+
+    Total RO  Size (Code + RO Data)                 5776 (   5.64kB)
+    Total RW  Size (RW Data + ZI Data)              1424 (   1.39kB)
+    Total ROM Size (Code + RO Data + RW Data)       5984 (   5.84kB)
+
+==============================================================================
+

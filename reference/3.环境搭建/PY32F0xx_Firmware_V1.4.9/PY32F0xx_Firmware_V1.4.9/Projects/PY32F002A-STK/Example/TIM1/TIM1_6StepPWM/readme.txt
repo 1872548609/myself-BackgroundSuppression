@@ -1,0 +1,87 @@
+================================================================================
+                                样例使用说明
+                             Sample Description
+================================================================================
+功能描述：
+此样例是对高级定时器功能“六步PWM的产生”的演示，通过systick中断作为COM commutation
+事件的触发源，实现（无刷电机的）换向
+
+Function descriptions:
+This sample demonstrates the "Six-step PWM Generation" feature of the advanced 
+timer. It uses the systick interrupt as the trigger source for the COM 
+commutation event to achieve commutation of a brushless motor. 
+================================================================================
+测试环境：
+测试用板：PY32F002A_STK
+MDK版本： 5.28
+IAR版本： 9.20
+GCC版本： GNU Arm Embedded Toolchain 10.3-2021.10
+
+Test environment:
+Test board: PY32F002A_STK
+MDK Version: 5.28
+IAR Version: 9.20
+GCC Version: GNU Arm Embedded Toolchain 10.3-2021.10
+================================================================================
+使用步骤：
+1. 编译并下载程序；
+2. 用示波器或逻辑分析仪接CH1(PA03)、CH1N(PA07)、CH2(PB03)、CH2N(PB00)、CH3(PA00)、
+CH3N(PB01)，可监测到注意事项中的PWM波形；
+
+
+Example execution steps:
+1.Compile and download the program.
+2. Use an oscilloscope or logic analyzer to connect CH1 (PA03), CH1N (PA07), 
+CH2 (PB03), CH2N (PB00), CH3 (PA00), CH3N (PB01), and can monitor the PWM 
+waveform in the notes;
+================================================================================
+注意事项：
+如果需要使用按键:
+StartKit版本为V2.0以下,需将StartKit.h中的StartKitVersion 2 注释掉，并打开
+StartKitVersion 1
+StartKit版本为V2.0及以上版本,则无需操作
+下表是换向步骤，比如第一步中的CH1和CH3N为1，即设置打开这两个通道的PWM输出
+
+        第一步      第二步      第三步      第四步      第五步     第六步     
+CH1      1           0           0           0           0          1          
+CH1N     0           0           1           1           0          0          
+CH2      0           0           0           1           1          0          
+CH2N     1           1           0           0           0          0          
+CH3      0           1           1           0           0          0          
+CH3N     0           0           0           0           1          1          
+
+CH1  (PA03)   |||||||_________________________________||||||||||||||_________________________________|||||||
+CH1N (PA07)   _______________||||||||||||||||_______________________________||||||||||||||||________________
+                                  
+CH2  (PB03)   _______________________||||||||||||||||_______________________________||||||||||||||||________
+CH2N (PB00)   |||||||||||||||________________________________|||||||||||||||________________________________
+                                  
+CH3  (PA0)   _______||||||||||||||||_______________________________||||||||||||||||________________________
+CH3N (PB1)   ________________________________|||||||||||||||________________________________|||||||||||||||
+
+Notes:
+If you need to use buttons:
+StartKit version is below V2.0, you need to comment StartKitVersion 2 in
+StartKit.h, and open StartKitVersion 1 
+StartKit version is V2.0 and above, no operation is required
+The table below 
+shows the PWM sequence for each step, where CH1 and CH2N are set to 1 in the 
+first step, indicating the activation of these two channels for PWM output.
+The PWM sequence is as follows:
+        Step 1      Step 2      Step 3      Step 4      Step 5     Step 6     
+CH1      1           0           0           0           0          1          
+CH1N     0           0           1           1           0          0          
+CH2      0           0           0           1           1          0          
+CH2N     1           1           0           0           0          0          
+CH3      0           1           1           0           0          0          
+CH3N     0           0           0           0           1          1          
+
+CH1  (PA03)   |||||||_________________________________||||||||||||||_________________________________|||||||
+CH1N (PA07)   _______________||||||||||||||||_______________________________||||||||||||||||________________
+                                  
+CH2  (PB03)   _______________________||||||||||||||||_______________________________||||||||||||||||________
+CH2N (PB00)   |||||||||||||||________________________________|||||||||||||||________________________________
+                                  
+CH3  (PA0)   _______||||||||||||||||_______________________________||||||||||||||||________________________
+CH3N (PB1)   ________________________________|||||||||||||||________________________________|||||||||||||||
+================================================================================
