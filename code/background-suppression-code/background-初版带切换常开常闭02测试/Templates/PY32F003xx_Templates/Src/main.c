@@ -53,7 +53,7 @@
 
 //= 定时器1采样周期频率不能小于adc采样最短时间 >2
 //= 单纯翻转io 8us 左右
-//= adc读取在0.5左右 3.5t时
+//= adc读取在0.5us左右 3.5t时
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef   AdcHandle;
 uint16_t            adc_buffer[BUFFER_SIZE];
