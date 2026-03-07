@@ -39,17 +39,17 @@
 
 /* Private define ------------------------------------------------------------*/
 #define TRANSMIT_PERIOD 100  //= 单位us ，发射管周期
-#define TRANSMIT_PULSE  90  //= 占空比 ，占周期多少  ,也就是pwm的CCR比较值
+#define TRANSMIT_PULSE  99  //= 占空比 ，占周期多少  ,也就是pwm的CCR比较值
 
 
-#define COMP_PULSE 84      // 比较点  
-#define COMP_VALUE 70/2    // 最大最小值的比较差         60
+#define COMP_PULSE 93      // 比较点  
+#define COMP_VALUE 145/2    // 最大最小值的比较差         60
 
 
 #define COMP_DIFFERENCE 10/2 // 回差=COMP_DIFFERENCE/2    13
 
 #define SAMPLE_PERIO 3      // 定时器1采样周期        
-#define BUFFER_SIZE 16        // 采样点数
+#define BUFFER_SIZE 15        // 采样点数
 
 //= 定时器1采样周期频率不能小于adc采样最短时间 >2
 //= 单纯翻转io 8us 左右
@@ -546,7 +546,7 @@ void DMA1_Channel1_IRQHandler(void)
        
        difvalue = adc_filter(difvalue);
        
-       difvalue = adc_lowpass_filter(difvalue,16,96,144);
+       difvalue = adc_lowpass_filter(difvalue,64,48,144);
          
            
         if(difvalue>=COMP_VALUE+COMP_DIFFERENCE) 
