@@ -62,11 +62,11 @@
 #endif
 
 /* TIM3 ARR=100-1；若 TIM3 输入时钟为24MHz，PSC=24-1 后每计数1us，名义周期100us。DMA处理中会停表，因此实际相邻采样批次间隔还包含处理停顿。 */
-#define TRANSMIT_PERIOD         100     //= 单位us ，发射管周期
+#define TRANSMIT_PERIOD         60     //= 单位us ，发射管周期
 /* TIM3 CH1 的 CCR=90。PWM1且低有效：CNT<90 时PA6为低，CNT>=90 时为高；名义低90us、高10us。发射管何时导通取决于外部驱动电路。 */
-#define TRANSMIT_PULSE          90      //= 占空比 ，pwm的CCR比较值
+#define TRANSMIT_PULSE          57      //= 占空比 ，pwm的CCR比较值
 /* CCR2=84-1=83；保留原比较中断位置，回调直接启动ADC连续转换。 */
-#define COMP_PULSE              92      //= 阈值  
+#define COMP_PULSE              59      //= 阈值  
 /* 每轮DMA传输16个半字，也就是16个ADC转换结果；参考数组也有16项，相关计算按相同索引配对。 */
 #define BUFFER_SIZE             1      //= adcbuffer采样点数
 
@@ -78,7 +78,7 @@
  * HIGH: adc滤波值 > ADC_THRESHOLD; LOW: adc滤波值 < ADC_THRESHOLD-ADC_HYSTERESIS。
  * 这里暂以2048/40作为调试默认值，需按遮光/通光实测ADC值整定。
  */
-#define ADC_THRESHOLD          2068U
+#define ADC_THRESHOLD          2048U
 #define ADC_HYSTERESIS         10U
 #define ADC_CONFIRM_COUNT      10U
 #define ADC_IIR_SHIFT          3U   /* 一阶滤波alpha=1/2，较轻；改为2则alpha=1/4 */
