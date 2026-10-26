@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\PY32F030x6_Templates.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\PY32F030x6_Templates.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sat Oct 24 09:45:12 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sat Oct 24 16:25:07 2026
 <BR><P>
 <H3>Maximum Stack Usage =        144 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -228,7 +228,7 @@ Global Symbols
 <LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;$Super$$main
 </UL>
 
-<P><STRONG><a name="[e]"></a>DMA1_Channel1_IRQHandler</STRONG> (Thumb, 320 bytes, Stack size 32 bytes, main.o(i.DMA1_Channel1_IRQHandler))
+<P><STRONG><a name="[e]"></a>DMA1_Channel1_IRQHandler</STRONG> (Thumb, 348 bytes, Stack size 32 bytes, main.o(i.DMA1_Channel1_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = DMA1_Channel1_IRQHandler &rArr; APP_AdcStartDMA &rArr; HAL_ADC_Start_DMA &rArr; HAL_DMA_Start_IT &rArr; DMA_SetConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -629,16 +629,12 @@ Local Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[44]"></a>adc_filter</STRONG> (Thumb, 146 bytes, Stack size 28 bytes, main.o(i.adc_filter))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = adc_filter
-</UL>
-<BR>[Called By]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel1_IRQHandler
+<P><STRONG><a name="[44]"></a>adc_filter</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, main.o(i.adc_filter))
+<BR><BR>[Called By]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[46]"></a>adc_filter_index2</STRONG> (Thumb, 146 bytes, Stack size 28 bytes, main.o(i.adc_filter_index2))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = adc_filter_index2
-</UL>
-<BR>[Called By]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel1_IRQHandler
+<P><STRONG><a name="[46]"></a>adc_filter_index2</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, main.o(i.adc_filter_index2))
+<BR><BR>[Called By]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel1_IRQHandler
 </UL>
 
 <P><STRONG><a name="[57]"></a>NVIC_SetPriority</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, py32f0xx_hal_cortex.o(i.NVIC_SetPriority))

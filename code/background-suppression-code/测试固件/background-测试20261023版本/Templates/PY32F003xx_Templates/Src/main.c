@@ -74,12 +74,19 @@
 //= 单纯翻转io 8us 左右
 //= ADC实际点间隔需结合采样保持、转换时长和触发接受规则确认。
 
-/* 新增：单点ADC判断参数（12位ADC范围0~4095，现场可调）。
- * HIGH: adc滤波值 > ADC_THRESHOLD; LOW: adc滤波值 < ADC_THRESHOLD-ADC_HYSTERESIS。
- * 这里暂以2048/40作为调试默认值，需按遮光/通光实测ADC值整定。
+/* 最终判断：索引0和索引2分别相对基准值计算有符号差值，独立判断偏移幅度。
+ * index0_diff = 索引0滤波值 - ADC_BASELINE，必须 > 0；
+ * index2_diff = 索引2滤波值 - ADC_BASELINE，必须 < 0。
+ * 方向满足后，分别比较 abs(index0_diff) 与索引0阈值、abs(index2_diff) 与索引2阈值。
+ * 从无效切换为有效：两个绝对偏差都必须 > 各自阈值 + 回差。
+ * 从有效切换为无效：任一绝对偏差 < 各自阈值 - 回差。
+ * 各自阈值上下限之间为回差区；只有两个索引都满足进入有效条件才会置有效。
+ * 任一差值方向不符合要求时立即判定无效，不保留回差状态。
  */
-#define ADC_THRESHOLD          2038U
-#define ADC_HYSTERESIS         10U
+#define ADC_BASELINE                    2040
+#define ADC_INDEX0_DIFF_THRESHOLD       30
+#define ADC_INDEX2_DIFF_THRESHOLD       30
+#define ADC_DIFF_HYSTERESIS             10
 /* 新增：最终ADC输出死区（ADC码值）。相对上一次已输出值，变化在±10以内不更新；设为0可关闭死区。 */
 #define ADC_DEADBAND           5U
 /* ================= ADC各级滤波独立使能开关 =================
@@ -88,32 +95,26 @@
  * 仅控制数字滤波，不影响ADC/DMA/TIM3和NO/NC配置。
  */
 #define ADC_MOVING_AVG_ENABLE  0U   /* 5点滑动平均 */
-#define ADC_IIR_ENABLE         0U   /* 一阶IIR */
-#define ADC_TRIM_ENABLE        1U   /* 8点截尾均值 */
+#define ADC_IIR_ENABLE         1U   /* 一阶IIR */
+#define ADC_TRIM_ENABLE        0U   /* 8点截尾均值 */
 #define ADC_DEADBAND_ENABLE    1U   /* 最终ADC输出死区 */
 
 
-#define ADC_IIR_SHIFT          2U   /* 一阶滤波alpha=1/2，较轻；改为2则alpha=1/4 */
+#define ADC_IIR_SHIFT          3U   /* 一阶滤波alpha=1/2，较轻；改为2则alpha=1/4 */
 
-/* =============== 索引2（第三个采样点）的独立处理 ===============
- * 所有滤波器拥有独立历史状态，不会与索引0混合。
- * ADC_INDEX2_CHECK_ENABLE=0：完全恢复索引0单条件判断。
- * 索引2有效：filtered2 < ADC_INDEX2_THRESHOLD；
- * 索引2无效：filtered2 > ADC_INDEX2_THRESHOLD + ADC_INDEX2_HYSTERESIS；
- * 迟滞范围内保持索引2上一判定状态。
+/* 索引2仍独立进行滤波；不再单独使用索引2阈值作最终判断。
+ * ADC_INDEX2_CHECK_ENABLE 保留为兼容开关：开启时处理索引2滤波，
+ * 关闭时索引2直接使用原始采样值参与差值计算。
  */
 #define ADC_INDEX2_CHECK_ENABLE       1U
 
-#define ADC_INDEX2_THRESHOLD          2030U  /* 示例值，请按实际ADC波形调整 */
-#define ADC_INDEX2_HYSTERESIS         10U
-
 #define ADC_INDEX2_MOVING_AVG_ENABLE  0U
-#define ADC_INDEX2_IIR_ENABLE         0U
-#define ADC_INDEX2_TRIM_ENABLE        1U
+#define ADC_INDEX2_IIR_ENABLE         1U
+#define ADC_INDEX2_TRIM_ENABLE        0U
 #define ADC_INDEX2_DEADBAND_ENABLE    1U
 
 #define ADC_INDEX2_DEADBAND           5U
-#define ADC_INDEX2_IIR_SHIFT          2U
+#define ADC_INDEX2_IIR_SHIFT          3U
 
 
 //== 有效确认次数
@@ -402,7 +403,7 @@ static void TMR3_OC_Init(void)
   * @param  None
   * @retval None
   */
-/* 修改：单通道ADC0 + TIM3比较中断软件启动ADC连续转换 + 原循环DMA16点。 */
+/* 单通道ADC0 + TIM3 TRGO硬件触发ADC连续转换 + DMA分组采样。 */
 static void APP_AdcInit(void)
 {
     /* 局部ADC通道配置结构清零，与全局TIM通道sConfig是不同对象。 */
@@ -482,7 +483,7 @@ static void APP_AdcInit(void)
     hdma_adc.Init.Direction = DMA_PERIPH_TO_MEMORY;
     /* 外设地址固定，每次都读ADC数据寄存器。 */
     hdma_adc.Init.PeriphInc = DMA_PINC_DISABLE;
-    /* 内存地址自动递增，依次填入adc_buffer[0..15]。 */
+    /* 内存地址自动递增，依次填入adc_buffer[0..BUFFER_SIZE-1]。 */
     hdma_adc.Init.MemInc = DMA_MINC_ENABLE;
     /* 外设每次读取半字，即16位。 */
     hdma_adc.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
@@ -710,7 +711,15 @@ volatile uint16_t g_adc2_raw = 0U;
 volatile uint16_t g_adc2_filtered = 0U;
 volatile uint8_t g_adc2_valid = 1U;
 #endif
-volatile uint8_t g_adc0_valid = 0U;
+/* 基准差值调试量：两个索引滤波值分别减去 ADC_BASELINE，保留正负号；
+ * 两个绝对偏差单独提供，分别对应索引0和索引2；g_adc_diff_valid 为最终联合状态。
+ */
+volatile int32_t g_adc0_baseline_diff = 0;
+volatile int32_t g_adc2_baseline_diff = 0;
+volatile int32_t g_adc0_abs_baseline_diff = 0;
+volatile int32_t g_adc2_abs_baseline_diff = 0;
+volatile uint8_t g_adc_diff_valid = 0U;
+volatile uint8_t g_adc0_valid = 0U; /* 兼容旧调试变量，不再单独参与最终联合判断 */
 
 #if ADC_INDEX2_CHECK_ENABLE
 static uint16_t adc_filter_index2(uint16_t sample)
@@ -806,7 +815,7 @@ static uint16_t adc_apply_deadband_index2(uint16_t input)
 #endif
 
 //DMA中断服务函数
-/* [双索引] 每轮DMA TC复制并重装，分别处理batch[0]和batch[2]后联合判定。
+/* [双索引差值判断] 每轮DMA TC复制并重装，分别处理batch[0]和batch[2]后计算滤波差值。
  * 不停止TIM3；但每轮必须停止/重新启动ADC DMA，以在下次TRGO前重新待命。
  */
 void DMA1_Channel1_IRQHandler(void)
@@ -869,36 +878,74 @@ void DMA1_Channel1_IRQHandler(void)
 #endif
         g_adc_filtered = filtered;
 
-        /* [索引2新增] batch[2]为本轮第三个ADC转换结果，非第二个元素。 */
+        /* 索引2使用本轮第三个ADC转换结果；其滤波链路与索引0相互独立。 */
         g_adc2_raw = batch[2];
 #if ADC_INDEX2_CHECK_ENABLE
         const uint16_t filtered2_before = adc_filter_index2(batch[2]);
         g_adc2_filtered_before_deadband = filtered2_before;
         const uint16_t filtered2 = adc_apply_deadband_index2(filtered2_before);
         g_adc2_filtered = filtered2;
-        /* 与索引0相反：低于设定值判有效，高于(阈值+迟滞)判无效。 */
-        if (filtered2 < ADC_INDEX2_THRESHOLD)
-            g_adc2_valid = 1U;
-        else if ((uint32_t)filtered2 >
-                 (uint32_t)ADC_INDEX2_THRESHOLD + ADC_INDEX2_HYSTERESIS)
-            g_adc2_valid = 0U;
-        /* 中间迟滞区域保持上次有效性。 */
 #else
-        g_adc2_filtered = batch[2];
-        g_adc2_valid = 1U; /* 关闭索引2判定，不影响索引0原条件。 */
+        /* 关闭索引2滤波开关时，原始索引2采样值直接参与差值判断。 */
+        const uint16_t filtered2 = batch[2];
+        g_adc2_filtered = filtered2;
 #endif
 
-        /* 索引0原迟滞：高于主阈值有效，低于(主阈值-回差)无效。 */
-        if (filtered > ADC_THRESHOLD)
-            g_adc0_valid = 1U;
-        else if (filtered < (ADC_THRESHOLD - ADC_HYSTERESIS))
-            g_adc0_valid = 0U;
-        /* 索引0迟滞区间也保持上一结果。 */
-
-        /* 联合条件：两个条件都有效才计数确认通光；否则计数确认遮光。
-         * 保留原来的10次确认、NO/NC逻辑和PA12输出极性。
+        /* 最终判断：不再把两个偏差相加，而是分别判断各自相对基准值的偏移量。
+         * 索引0必须高于基准，索引2必须低于基准；任一方向不满足即立即无效。
+         * 无效状态进入有效状态时，两个绝对偏差都必须大于各自阈值 + 回差。
+         * 已有效时，任一绝对偏差低于各自阈值 - 回差，就清除有效状态。
          */
-        const uint8_t joint_valid = (g_adc0_valid && g_adc2_valid);
+        const int32_t index0_diff = (int32_t)filtered - (int32_t)ADC_BASELINE;
+        const int32_t index2_diff = (int32_t)filtered2 - (int32_t)ADC_BASELINE;
+        const int32_t index0_abs = (index0_diff >= 0) ? index0_diff : -index0_diff;
+        const int32_t index2_abs = (index2_diff >= 0) ? index2_diff : -index2_diff;
+        const int32_t index0_on_threshold =
+            (int32_t)ADC_INDEX0_DIFF_THRESHOLD + (int32_t)ADC_DIFF_HYSTERESIS;
+        const int32_t index2_on_threshold =
+            (int32_t)ADC_INDEX2_DIFF_THRESHOLD + (int32_t)ADC_DIFF_HYSTERESIS;
+        const int32_t index0_off_threshold =
+            (int32_t)ADC_INDEX0_DIFF_THRESHOLD - (int32_t)ADC_DIFF_HYSTERESIS;
+        const int32_t index2_off_threshold =
+            (int32_t)ADC_INDEX2_DIFF_THRESHOLD - (int32_t)ADC_DIFF_HYSTERESIS;
+
+        g_adc0_baseline_diff = index0_diff;
+        g_adc2_baseline_diff = index2_diff;
+        g_adc0_abs_baseline_diff = index0_abs;
+        g_adc2_abs_baseline_diff = index2_abs;
+
+        if ((index0_diff <= 0) || (index2_diff >= 0))
+        {
+            /* 索引0必须 > 0、索引2必须 < 0；方向不符立即清除有效状态。 */
+            g_adc_diff_valid = 0U;
+        }
+        else if (g_adc_diff_valid == 0U)
+        {
+            /* 进入有效状态要求两个索引分别超过各自的阈值 + 回差。 */
+            if ((index0_abs > index0_on_threshold) &&
+                (index2_abs > index2_on_threshold))
+            {
+                g_adc_diff_valid = 1U;
+            }
+        }
+        else
+        {
+            /* 已有效时，任一索引低于各自的阈值 - 回差，则判定无效。 */
+            if ((index0_abs < index0_off_threshold) ||
+                (index2_abs < index2_off_threshold))
+            {
+                g_adc_diff_valid = 0U;
+            }
+        }
+
+        /* 保留旧调试变量，避免外部观察窗口/调试脚本因变量被删除而失效；
+         * 这两个变量不再各自按独立阈值判断，也不再用于最终判定。
+         */
+        g_adc0_valid = g_adc_diff_valid;
+        g_adc2_valid = g_adc_diff_valid;
+
+        /* 后续确认次数、NO/NC逻辑、PA12输出极性保持不变。 */
+        const uint8_t joint_valid = g_adc_diff_valid;
         const uint8_t NONCchange = (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5) != GPIO_PIN_RESET);
         if (joint_valid)
         {
