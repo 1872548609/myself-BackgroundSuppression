@@ -380,6 +380,11 @@
           <WinNumber>1</WinNumber>
           <ItemText>g_adc0_baseline_diff,0x0A</ItemText>
         </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>g_adc_fluctuation,0x0A</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>

@@ -146,6 +146,17 @@ static const uint16_t random_period_table[RANDOM_PERIOD_COUNT] = {
 
 //== 有效确认次数
 #define ADC_CONFIRM_COUNT      3U
+
+/* ===== 十点极差干扰判定 =====
+ * 复用DMA批处理已经求出的maxval/minval，不额外遍历ADC数组。
+ * 本批极差 = maxval - minval，大于阈值认为波动过大。
+ * 干扰批次：保留原输出和即时阈值状态；清零连续有效/无效确认次数；
+ *           不送入IIR/8点截尾/死区，避免异常值污染滤波器历史。
+ * 真实遮光切换瞬间也可能产生较大极差，因此只丢弃当前批次，不立即判遮光。
+ * 30为调试初值，请观察实际正常/干扰数据再定阈值。
+ */
+#define ADC_FLUCTUATION_ENABLE     1U
+#define ADC_FLUCTUATION_THRESHOLD 100U
 /* Private variables ---------------------------------------------------------*/
 /* ADC1 的 HAL 管理句柄，包含配置、状态及关联的DMA句柄。 */
 ADC_HandleTypeDef   AdcHandle;
@@ -165,6 +176,9 @@ uint16_t            adc_buffer[BUFFER_SIZE];
  * g_random_last_batch_periods[]：上一批完成后冻结供观察的10个周期，最值得核对示波器。
  * g_random_last_batch_period_count：上一批记录的实际元素数量，正常应=RANDOM_BATCH_SIZE。
  * g_adc_batch_value：本批ADC去掉1个最大值、1个最小值后的平均结果。
+ * g_adc_fluctuation：本批原始10点极差（最大-最小），与滤波输出无关。
+ * g_adc_interference：1表示此批波动过大，停止更新后级滤波和确认状态。
+ * g_adc_interference_count：累计发现的干扰批次数，用于统计频率。
  * ！！周期历史基于TIM3更新事件推断，DMA TC可能早于/晚于周期更新事件：
  * ！！不能把history与ADC数据严格对应看作已验证事实，需上板测量确认。
  */
@@ -179,6 +193,10 @@ volatile uint16_t g_random_last_batch_periods[RANDOM_BATCH_SIZE];
 volatile uint8_t g_random_last_batch_period_count = 0U;
 static uint16_t queued_period = 100U; /* 内部用：下一次UEV要切换成的周期 */
 volatile uint16_t g_adc_batch_value = 0U;
+/* 干扰调试观察：每完成一批都刷新，和ADC_CONFIRM_COUNT无关。 */
+volatile uint16_t g_adc_fluctuation = 0U;      /* 本批10点最大ADC值-最小ADC值 */
+volatile uint8_t  g_adc_interference = 0U;     /* 1=本批极差超过门限；0=本批正常 */
+volatile uint32_t g_adc_interference_count = 0U; /* 开机以来检测到的干扰批次总数 */
 
 /* 产生一次伪随机候选值：位移异或更新32位状态，再用取余映射到表格。
  * 该算法计算快、无需stdlib随机数库；但候选值不是不可预测的真随机数，
@@ -692,10 +710,10 @@ static int32_t adc_iir_state = 0;
  * g_adc_filtered：经过当前启用的IIR、8批截尾滤波与死区后的最终码值。
  * g_adc_threshold_delta：g_adc_filtered - ADC_VALID_THRESHOLD；正值表示超过开启阈值。
  * g_adc_diff_valid：按ADC绝对阈值及迟滞判断的即时有效标志(0/1)。
- * g_adc_signal_state：累计连续ADC_CONFIRM_COUNT“批次”后的有效状态(0/1)，
+ * g_adc_signal_state：累计连续ADC_CONFIRM_COUNT“正常批次”后的有效状态(0/1)，
  *                     与PA12电平不同：PA12还取决于PB5的NO/NC极性及测试模式。
  * adc_high_count/adc_low_count：内部连续有效/无效批次计数，不对外开放Watch。
- * adc_deadband_output：最终死区保持的旧码值，避免微小变化频繁改动阈值输入。
+ * adc_deadband_output：最终死区保持的旧码值；干扰批次不更新该值。
  */
 volatile uint16_t g_adc_raw = 0U;          /* 索引0原始值 */
 volatile uint16_t g_adc_filtered = 0U;     /* 索引0最终滤波值 */
@@ -846,7 +864,8 @@ static uint16_t adc_apply_deadband(uint16_t input)
  *        但不是全局禁止中断。DMA循环模式仍为启用状态，下一次触发前必须处理完成。
  * 步骤2：把10个uint16_t求和，剔除最大和最小各1个后除以8；
  *        这属于“一批内部”的截尾平均，与adc_filter()中的“8个批次历史截尾”不同。
- * 步骤3：对这个单一批值执行启用的IIR、8批截尾与死区，然后直接按ADC绝对阈值及迟滞判断。
+ * 步骤3：复用极值计算本批极差；过大则冻结后级滤波、阈值和输出，只清零确认计数。
+ *        正常批次才更新IIR、8批截尾与死区，然后比较ADC绝对阈值及迟滞。
  * 步骤4：有效/无效连续计数达ADC_CONFIRM_COUNT批，才刷新PA12；PB5决定高低极性。
  * 步骤5：将批次周期历史复制到稳定Watch数组，复位TIM3并重新装载首个/下一周期。
  * 注意：目前批末通过软件UG重启，可能产生批次间额外时间间隔/不完整周期；
@@ -881,56 +900,76 @@ void DMA1_Channel1_IRQHandler(void)
         g_adc_raw = sample;
         g_random_batch_count++;
 
-        const uint16_t filtered_before_deadband = adc_filter(sample);
-#if ADC_DEADBAND_ENABLE
-        const uint16_t filtered = adc_apply_deadband(filtered_before_deadband);
+        /* 极差判断复用刚才的最大/最小值，只有一次减法；并不影响本批截尾均值观察。 */
+        g_adc_fluctuation = (uint16_t)(maxval - minval);
+#if ADC_FLUCTUATION_ENABLE
+        g_adc_interference = (g_adc_fluctuation > ADC_FLUCTUATION_THRESHOLD) ? 1U : 0U;
 #else
-        const uint16_t filtered = filtered_before_deadband;
+        g_adc_interference = 0U;
 #endif
-        g_adc_filtered = filtered;
-        /* 直接使用最终ADC码值进行阈值和迟滞判断，不减去任何基线。
-         * 初始无效状态：filtered > ADC_VALID_THRESHOLD 才变为有效；
-         * 已经有效时：filtered <= ADC_VALID_THRESHOLD-ADC_HYSTERESIS 才变回无效。
-         * 位于两阈值之间保持先前状态，避免在阈值附近频繁切换。
-         */
-        g_adc_threshold_delta = (int32_t)filtered - (int32_t)ADC_VALID_THRESHOLD;
-        if (!g_adc_diff_valid)
+        if (g_adc_interference)
         {
-            if (filtered > ADC_VALID_THRESHOLD) g_adc_diff_valid = 1U;
-        }
-        else
-        {
-            if (filtered <= (ADC_VALID_THRESHOLD - ADC_HYSTERESIS))
-                g_adc_diff_valid = 0U;
-        }
-
-        const uint8_t NONCchange =
-            (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5) != GPIO_PIN_RESET);
-            
-        if (g_adc_diff_valid)
-        {
-            adc_low_count = 0U;
-            if (adc_high_count < ADC_CONFIRM_COUNT) adc_high_count++;
-            if (adc_high_count >= ADC_CONFIRM_COUNT)
-            {
-                g_adc_signal_state = 1U;
-#if !OUTPUT_TEST_ENABLE
-                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12,
-                                  NONCchange ? GPIO_PIN_SET : GPIO_PIN_RESET);
-#endif
-            }
-        }
-        else
-        {
+            g_adc_interference_count++;
+            /* 该批不参与连续3批确认，也不能破坏现有输出/滤波历史。
+             * g_adc_filtered、g_adc_threshold_delta、g_adc_diff_valid保持上次稳定值。
+             * g_adc_batch_value和g_adc_raw仍显示本批实际均值，便于观察。
+             */
             adc_high_count = 0U;
-            if (adc_low_count < ADC_CONFIRM_COUNT) adc_low_count++;
-            if (adc_low_count >= ADC_CONFIRM_COUNT)
+            adc_low_count = 0U;
+        }
+        else
+        {
+            const uint16_t filtered_before_deadband = adc_filter(sample);
+    #if ADC_DEADBAND_ENABLE
+            const uint16_t filtered = adc_apply_deadband(filtered_before_deadband);
+    #else
+            const uint16_t filtered = filtered_before_deadband;
+    #endif
+            g_adc_filtered = filtered;
+            /* 直接使用最终ADC码值进行阈值和迟滞判断，不减去任何基线。
+             * 初始无效状态：filtered > ADC_VALID_THRESHOLD 才变为有效；
+             * 已经有效时：filtered <= ADC_VALID_THRESHOLD-ADC_HYSTERESIS 才变回无效。
+             * 位于两阈值之间保持先前状态，避免在阈值附近频繁切换。
+             */
+            g_adc_threshold_delta = (int32_t)filtered - (int32_t)ADC_VALID_THRESHOLD;
+            if (!g_adc_diff_valid)
             {
-                g_adc_signal_state = 0U;
-#if !OUTPUT_TEST_ENABLE
-                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12,
-                                  NONCchange ? GPIO_PIN_RESET : GPIO_PIN_SET);
-#endif
+                if (filtered > ADC_VALID_THRESHOLD) g_adc_diff_valid = 1U;
+            }
+            else
+            {
+                if (filtered <= (ADC_VALID_THRESHOLD - ADC_HYSTERESIS))
+                    g_adc_diff_valid = 0U;
+            }
+
+            const uint8_t NONCchange =
+                (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5) != GPIO_PIN_RESET);
+            
+            if (g_adc_diff_valid)
+            {
+                adc_low_count = 0U;
+                if (adc_high_count < ADC_CONFIRM_COUNT) adc_high_count++;
+                if (adc_high_count >= ADC_CONFIRM_COUNT)
+                {
+                    g_adc_signal_state = 1U;
+    #if !OUTPUT_TEST_ENABLE
+                    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12,
+                                      NONCchange ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    #endif
+                }
+            }
+            else
+            {
+                adc_high_count = 0U;
+                if (adc_low_count < ADC_CONFIRM_COUNT) adc_low_count++;
+                if (adc_low_count >= ADC_CONFIRM_COUNT)
+                {
+                    g_adc_signal_state = 0U;
+    #if !OUTPUT_TEST_ENABLE
+                    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12,
+                                      NONCchange ? GPIO_PIN_RESET : GPIO_PIN_SET);
+    #endif
+                }
             }
         }
 
