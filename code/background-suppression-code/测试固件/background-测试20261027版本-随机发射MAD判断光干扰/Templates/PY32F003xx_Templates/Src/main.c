@@ -104,7 +104,7 @@
 #endif
 
 static const uint16_t random_period_table[RANDOM_PERIOD_COUNT] = {
-    40U, 45U, 50U, 60U, 65U, 70U, 75U, 80U, 85U, 90U
+    30U, 40U, 50U, 60U, 65U, 70U, 75U, 80U, 85U, 90U
 };
 /* 想使用6个候选周期，把 COUNT 改成6，同时表内只保留6个数字。 */
 /* RANDOM_BATCH_SIZE 与 PERIOD_COUNT 独立：例如6种候选仍可随机采集10轮。 */

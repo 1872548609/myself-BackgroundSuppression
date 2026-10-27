@@ -27,7 +27,26 @@ Project File Date:  10/08/2026
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\long\Keil_v5\ARM\ARMCC\Bin'
 Build target 'PY32F003x6_Project'
-".\Objects\PY32F030x6_Templates.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+..\Src\main.c(705): warning:  #177-D: variable "adc_window"  was declared but never referenced
+  static uint16_t adc_window[WINDOW_SIZE];
+..\Src\main.c(706): warning:  #177-D: variable "adc_window_index"  was declared but never referenced
+  static uint8_t adc_window_index = 0U;
+..\Src\main.c(707): warning:  #177-D: variable "adc_filter_initialized"  was declared but never referenced
+  static uint8_t adc_filter_initialized = 0U;
+..\Src\main.c(708): warning:  #177-D: variable "adc_window_sum"  was declared but never referenced
+  static uint32_t adc_window_sum = 0U;
+..\Src\main.c(738): warning:  #177-D: variable "adc_trim_window"  was declared but never referenced
+  static uint16_t adc_trim_window[TRIM_WINDOW_SIZE];
+..\Src\main.c(739): warning:  #177-D: variable "adc_trim_index"  was declared but never referenced
+  static uint8_t adc_trim_index = 0U;
+..\Src\main.c(740): warning:  #177-D: variable "adc_trim_initialized"  was declared but never referenced
+  static uint8_t adc_trim_initialized = 0U;
+..\Src\main.c: 7 warnings, 0 errors
+linking...
+Program Size: Code=6336 RO-data=360 RW-data=256 ZI-data=1328  
+FromELF: creating hex file...
+".\Objects\PY32F030x6_Templates.axf" - 0 Error(s), 7 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -50,7 +69,7 @@ Package Vendor: Puya
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE@6.1.0
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
