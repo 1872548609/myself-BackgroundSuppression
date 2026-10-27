@@ -104,7 +104,7 @@
 #endif
 
 static const uint16_t random_period_table[RANDOM_PERIOD_COUNT] = {
-    40U, 45U, 50U, 60U, 65U, 70U, 75U, 80U, 850U, 90U
+    40U, 45U, 50U, 60U, 65U, 70U, 75U, 80U, 85U, 90U
 };
 /* 想使用6个候选周期，把 COUNT 改成6，同时表内只保留6个数字。 */
 /* RANDOM_BATCH_SIZE 与 PERIOD_COUNT 独立：例如6种候选仍可随机采集10轮。 */
@@ -136,7 +136,7 @@ static const uint16_t random_period_table[RANDOM_PERIOD_COUNT] = {
  */
 #define ADC_MOVING_AVG_ENABLE  0U   /* 5点滑动平均 */
 #define ADC_IIR_ENABLE         1U   /* 一阶IIR */
-#define ADC_TRIM_ENABLE        1U   /* 8点截尾均值 */
+#define ADC_TRIM_ENABLE        0U   /* 8点截尾均值 */
 #define ADC_DEADBAND_ENABLE    1U   /* 最终ADC输出死区 */
 
 /* 新增：最终ADC输出死区（ADC码值）。相对上一次已输出值，变化在±5以内不更新；设为0可关闭死区。 */
