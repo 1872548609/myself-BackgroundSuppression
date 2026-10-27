@@ -104,7 +104,7 @@
 #endif
 
 static const uint16_t random_period_table[RANDOM_PERIOD_COUNT] = {
-    30U, 40U, 50U, 60U, 70U, 80U, 90U, 100U, 110U, 120U
+    40U, 45U, 50U, 60U, 65U, 70U, 75U, 80U, 850U, 90U
 };
 /* 想使用6个候选周期，把 COUNT 改成6，同时表内只保留6个数字。 */
 /* RANDOM_BATCH_SIZE 与 PERIOD_COUNT 独立：例如6种候选仍可随机采集10轮。 */
@@ -142,7 +142,7 @@ static const uint16_t random_period_table[RANDOM_PERIOD_COUNT] = {
 /* 新增：最终ADC输出死区（ADC码值）。相对上一次已输出值，变化在±5以内不更新；设为0可关闭死区。 */
 #define ADC_DEADBAND           3U
 
-#define ADC_IIR_SHIFT          2U   /* 一阶滤波3 alpha=1/8；改为2则alpha=1/4 */
+#define ADC_IIR_SHIFT          1U   /* 一阶滤波3 alpha=1/8；改为2则alpha=1/4 */
 
 //== 有效确认次数
 #define ADC_CONFIRM_COUNT      3U
