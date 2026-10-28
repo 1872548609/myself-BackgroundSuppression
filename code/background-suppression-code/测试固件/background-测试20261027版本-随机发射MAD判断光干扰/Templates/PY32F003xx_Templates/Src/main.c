@@ -104,7 +104,7 @@
 #endif
 
 static const uint16_t random_period_table[RANDOM_PERIOD_COUNT] = {
-    30U, 40U, 50U, 60U, 65U, 70U, 75U, 80U, 85U, 90U
+    30U, 39U, 48U, 54U, 59U, 62U, 73U, 77U, 80U, 86U
 };
 /* 想使用6个候选周期，把 COUNT 改成6，同时表内只保留6个数字。 */
 /* RANDOM_BATCH_SIZE 与 PERIOD_COUNT 独立：例如6种候选仍可随机采集10轮。 */
@@ -159,7 +159,7 @@ static const uint16_t random_period_table[RANDOM_PERIOD_COUNT] = {
  * 阈值20仅用于开始上板观察，需按实际正常/遮光/受干扰时MAD分布调整。
  */
 #define ADC_MAD_ENABLE              1U
-#define ADC_MAD_THRESHOLD          40U
+#define ADC_MAD_THRESHOLD          50U
 /* Private variables ---------------------------------------------------------*/
 /* ADC1 的 HAL 管理句柄，包含配置、状态及关联的DMA句柄。 */
 ADC_HandleTypeDef   AdcHandle;
