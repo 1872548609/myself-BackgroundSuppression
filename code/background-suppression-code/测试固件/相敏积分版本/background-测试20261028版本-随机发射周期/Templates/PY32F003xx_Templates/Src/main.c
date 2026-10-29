@@ -3,14 +3,15 @@
  *
  * 配置流程：
  * HAL初始化 -> 系统时钟 -> GPIO -> TIM3配置 -> ADC/DMA配置
- * -> DMA先启动并等待触发 -> 启动TIM3 CH2和CH1 -> DMA完成中断重新武装
+ * -> DMA先启动并等待触发 -> 启动TIM3 CH2和CH1 -> DMA完成中断寄存器快速重装
  *
  * 本文件仅为基础配置展示：
  * 1. 不含滤波、阈值判定、NO/NC控制算法和测试观察变量。
- * 2. 保持纯净版所有有效语句及参数不变，仅增加中文说明。
- * 3. 原设计使用TIM3 CH2的OC2REF作为TRGO，在指定计数点触发ADC。
- * 4. ADC采用连续转换，DMA为NORMAL模式，每轮目标搬运10个16位结果。
- * 5. 本文件未验证在实际芯片上能否每轮可靠停止、重装DMA并接受下一次触发。
+ * 2. 宏控制固定周期或随机周期；随机模式才启用TIM3更新中断，ADC与DMA采集机制不变。
+ * 3. 两种模式都在周期末前1us由TIM3 CH2的OC2REF上升沿发出TRGO。
+ * 4. ADC仍采用连续转换，DMA仍为NORMAL模式，每轮搬运10点；中断不关闭ADC外设。
+ *    因此本版并不保证每个随机发射周期只采1点；这是保留新版ADC配置的结果。
+ * 5. 随机模式最短周期30us，必须上板检查TIM3更新ISR开销和DMA重装耗时。
  * 6. 需要结合main.h、HAL底层MSP及芯片参考手册确认ADC0对应引脚和DMA请求映射。
  */
 
@@ -19,19 +20,69 @@
 /* 提供uint16_t等标准整数类型。 */
 #include <stdint.h>
 
-/* TIM3计数周期，当前计数步长按24MHz/24=1MHz计算，每格1us。ARR=109，因此周期为110us。 */
-#define TRANSMIT_PERIOD 110
-/* CH1比较值CCR1=107。PWM1+低有效时，计数0~106对应低电平，107~109对应高电平。 */
-#define TRANSMIT_PULSE 107
-/* CH2实际比较值为COMP_PULSE-1=108，在CNT=108附近产生OC2REF上升沿。 */
-#define COMP_PULSE 109
+/*
+ * 发射周期工作模式：
+ * 0 = 固定周期：始终使用FIXED_TRANSMIT_PERIOD，关闭TIM3更新中断。
+ * 1 = 随机周期：按random_period_table逐周期生成随机候选周期。
+ * 两种模式都保留CH1 PWM和CH2 TRGO；ADC、DMA与PA12测试不变。
+ */
+#define TRANSMIT_RANDOM_ENABLE     1U
+#define FIXED_TRANSMIT_PERIOD      110U
+
+/* 随机发射周期：取值单位us，TIM3计数频率1MHz。 */
+#define RANDOM_PERIOD_COUNT       10U
+#define RANDOM_INITIAL_PERIOD     100U
+
+#if TRANSMIT_RANDOM_ENABLE
+#define TIM3_INITIAL_PERIOD RANDOM_INITIAL_PERIOD
+#else
+#define TIM3_INITIAL_PERIOD FIXED_TRANSMIT_PERIOD
+#endif
+#define RANDOM_PWM_OFF_US         3U
+#define RANDOM_ADC_BEFORE_END_US  1U
+
+#if TRANSMIT_RANDOM_ENABLE
+/* 从main(4).c移植的候选表；可以随机重复同一周期。 */
+static const uint16_t random_period_table[RANDOM_PERIOD_COUNT] = {
+    30U, 40U, 50U, 60U, 70U, 80U, 90U, 100U, 110U, 120U
+};
+
+/* 固定种子的xorshift32是伪随机序列，每次上电重复相同序列。 */
+static uint32_t rng_state = 0x6D2B79F5UL;
+
+static uint16_t Random_NextPeriod(void)
+{
+    rng_state ^= rng_state << 13;
+    rng_state ^= rng_state >> 17;
+    rng_state ^= rng_state << 5;
+    return random_period_table[rng_state % RANDOM_PERIOD_COUNT];
+}
+
+/* 只写预装载值；ARR、CCR1、CCR2在下一个TIM3更新事件同时生效。 */
+static void TIM3_QueuePeriod(uint16_t period)
+{
+    TIM3->ARR  = (uint32_t)(period - 1U);
+    TIM3->CCR1 = (uint32_t)(period - RANDOM_PWM_OFF_US);
+    TIM3->CCR2 = (uint32_t)(period - RANDOM_ADC_BEFORE_END_US);
+}
+
+/* 更新中断仅预先安排下一轮随机周期，不进行ADC算法或统计。 */
+void TIM3_IRQHandler(void)
+{
+    if ((TIM3->SR & TIM_SR_UIF) != 0U)
+    {
+        TIM3->SR = (uint32_t)~TIM_SR_UIF;
+        TIM3_QueuePeriod(Random_NextPeriod());
+    }
+}
+#endif
 /* 每次DMA传输10个ADC转换结果；每个结果存入一个16位元素，并非10路ADC。 */
-#define BUFFER_SIZE 7
+#define BUFFER_SIZE 10
 
 /*
  * 输出测试宏：1=开启，0=关闭。
  * 使用现有PA12作为示波器测试输出，不额外占用GPIO。
- * 开启后，DMA TC中断真正进入处理分支时PA12拉低，完成DMA停止及重新启动后拉高。
+ * 开启后，DMA TC中断真正进入处理分支时PA12拉低，完成快速重新武装后拉高。
  * 示波器测量PA12低电平宽度，可估算本轮DMA完成处理路径的耗时。
  * 注意：不包含DMA传输本身的时间，也不包含IRQ入口到标记语句前的时间；
  * GPIO函数执行及中断抢占也影响观察值，测试宏开启会增加少量执行开销。
@@ -72,6 +123,24 @@ int main(void)
     APP_AdcInit();
     /* 先使ADC/DMA进入等待硬件触发状态。 */
     APP_AdcStartDMA();
+
+#if TRANSMIT_RANDOM_ENABLE
+    /* 随机模式：首周期UG生效，再排队第二个周期，开启TIM3更新中断。 */
+    TIM3_QueuePeriod(Random_NextPeriod());
+    TIM3->EGR = TIM_EGR_UG;
+    TIM3->SR = (uint32_t)~TIM_SR_UIF;
+
+    TIM3_QueuePeriod(Random_NextPeriod());
+    HAL_NVIC_SetPriority(TIM3_IRQn, 1, 0);
+    HAL_NVIC_ClearPendingIRQ(TIM3_IRQn);
+    HAL_NVIC_EnableIRQ(TIM3_IRQn);
+    TIM3->DIER |= TIM_DIER_UIE;
+#else
+    /* 固定模式：ARR/CCR在TIM3初始化中设置，这里只加载预装载值。 */
+    TIM3->EGR = TIM_EGR_UG;
+    TIM3->SR = (uint32_t)~TIM_SR_UIF;
+    TIM3->DIER &= ~TIM_DIER_UIE;
+#endif
 
     /* 启动CH2通道；它的内部OC2REF用于TIM3 TRGO触发，不要求配置CH2外部引脚。 */
     if (HAL_TIM_OC_Start(&Tim3Handle, TIM_CHANNEL_2) != HAL_OK)
@@ -129,7 +198,7 @@ static void GPIO_Init(void)
 #endif
 }
 
-/* TIM3：24MHz时钟、PSC=23、ARR=109，计数周期110us；CH1 PWM，CH2提供ADC TRGO。 */
+/* TIM3 24MHz/24=1MHz；ARR及两路CCR由随机周期函数动态预装载。 */
 static void TMR3_OC_Init(void)
 {
 
@@ -154,8 +223,8 @@ static void TMR3_OC_Init(void)
     /* 选择TIM3外设实例。 */
     Tim3Handle.Instance = TIM3;
 
-    /* ARR=110-1=109，向上计数0~109，合计110个计数周期。 */
-    Tim3Handle.Init.Period            = TRANSMIT_PERIOD - 1;
+    /* 初始化占位周期；main函数启动前会随机覆盖预装载值并通过UG生效。 */
+    Tim3Handle.Init.Period            = TIM3_INITIAL_PERIOD - 1U;
 
     /* PSC=23，24MHz/(23+1)=1MHz，因此一个CNT计数对应1us。 */
     Tim3Handle.Init.Prescaler         = 24 - 1;
@@ -193,8 +262,8 @@ static void TMR3_OC_Init(void)
 
     sConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;
 
-    /* CCR1=107，110计数中名义低107us、高3us；发射管导通极性取决于外围驱动。 */
-    sConfig.Pulse = TRANSMIT_PULSE;
+    /* CH1低有效PWM1：周期末尾3us输出高电平，其他时间输出低电平。 */
+    sConfig.Pulse = TIM3_INITIAL_PERIOD - RANDOM_PWM_OFF_US;
 
     if (HAL_TIM_OC_ConfigChannel(&Tim3Handle, &sConfig, TIM_CHANNEL_1) != HAL_OK)
     {
@@ -215,15 +284,18 @@ static void TMR3_OC_Init(void)
 
     sConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;
 
-    /* CCR2=108，约在本周期第108个计数点形成OC2REF上升沿。 */
-    sConfig.Pulse = COMP_PULSE-1;
+    /* CH2 PWM2：在周期终点前1us产生OC2REF上升沿，作为ADC触发。 */
+    sConfig.Pulse = TIM3_INITIAL_PERIOD - RANDOM_ADC_BEFORE_END_US;
 
     if (HAL_TIM_OC_ConfigChannel(&Tim3Handle, &sConfig, TIM_CHANNEL_2) != HAL_OK)
     {
           APP_ErrorHandler();
     }
 
-    /* 配置TIM3主触发输出TRGO；此配置不启动TIM3中断。 */
+    /* 三个预装载寄存器在更新事件统一生效，防止周期改变时CCR错位。 */
+    TIM3->CCMR1 |= TIM_CCMR1_OC1PE | TIM_CCMR1_OC2PE;
+
+    /* 配置TIM3主触发输出TRGO。 */
      TIM_MasterConfigTypeDef master = {0};
     /* 将CH2内部OC2REF送到TRGO，ADC通过TRGO上升沿开始转换。 */
      master.MasterOutputTrigger = TIM_TRGO_OC2REF;
@@ -274,8 +346,8 @@ static void APP_AdcInit(void)
     /* 扫描方向向后；仅启用ADC_CHANNEL_0，因此实质上仅采集一个通道。 */
     AdcHandle.Init.ScanConvMode = ADC_SCAN_DIRECTION_BACKWARD;
 
-    /* 开启自动等待：新转换可能等待上一个数据被读取，以避免数据未取走即覆盖。 */
-    AdcHandle.Init.LowPowerAutoWait = ENABLE;
+    /* 不开启自动等待：新转换可能等待上一个数据被读取，以避免数据未取走即覆盖。 */
+    AdcHandle.Init.LowPowerAutoWait = DISABLE;
 
     /* 开启连续转换：一次接受外部触发后尝试持续转换，而非每点都等待下一次TRGO。 */
     AdcHandle.Init.ContinuousConvMode = ENABLE;
@@ -369,30 +441,89 @@ static void APP_AdcStartDMA(void)
     __HAL_DMA_DISABLE_IT(&hdma_adc, DMA_IT_HT);
 }
 
-/* DMA通道1 IRQ：只做必要的完成标志清除、停止和再次启动，不做信号算法。 */
+/*
+ * DMA NORMAL 快速重新武装（仅由 DMA1_Channel1_IRQHandler 调用）。
+ *
+ * 目标：
+ * 1. ADC始终保持ADEN使能，不执行ADC_Disable和HAL_ADC_Stop_DMA。
+ * 2. DMA搬满10点后结束本轮连续转换。
+ * 3. DMA通道重装CNDTR=10，下一次TRGO再启动下一组连续转换。
+ *
+ * 重要限制：
+ * - 这是直接寄存器控制路径，首次启动仍由HAL_ADC_Start_DMA完成。
+ * - 中断中的HAL软件状态不再逐组更新；运行期间不要混用HAL_ADC_Stop_DMA/
+ *   HAL_ADC_Start_DMA或其他依赖HAL状态机的ADC操作。
+ * - TIM3始终继续计数。重装窗口内的TRGO可能丢失，不保证每个PWM周期都采一组。
+ * - 采用STM32F0/Puya兼容的ADC_CR_ADSTP、ADSTART、CFGR1_DMAEN寄存器定义。
+ * - 若目标HAL实际寄存器定义不同，需以该芯片device header为准。
+ */
+#define ADC_REARM_WAIT_LIMIT  10000U
+
+static void APP_AdcDmaFastRearm(void)
+{
+    uint32_t timeout;
+
+    /* DMA NORMAL传满后一般硬件已停止。再次清EN确保CNDTR可写。 */
+    DMA1_Channel1->CCR &= ~DMA_CCR_EN;
+
+//    /* 终止ADC当前连续转换，但保持ADEN=1，不关闭ADC外设。 */
+//    if ((ADC1->CR & ADC_CR_ADSTART) != 0U)
+//    {
+//        ADC1->CR |= ADC_CR_ADSTP;
+//        timeout = ADC_REARM_WAIT_LIMIT;
+//        while ((ADC1->CR & ADC_CR_ADSTP) != 0U)
+//        {
+//            if (--timeout == 0U) APP_ErrorHandler();
+//        }
+//    }
+
+    /* 转换停止后关闭DMA请求，清掉上轮可能残留的状态标志。 */
+    ADC1->CFGR1 &= ~ADC_CFGR1_DMAEN;
+
+    /* 清DMA1 CH1的GI/TC/HT/TE全部标志，避免旧标志重入。 */
+    DMA1->IFCR = DMA_IFCR_CGIF1;
+
+    /* NORMAL模式重新装载传输数量；地址和传输宽度保持初始化时的值。 */
+    DMA1_Channel1->CNDTR = BUFFER_SIZE;
+
+    /* 先让DMA就绪，再允许ADC发送DMA请求。 */
+    DMA1_Channel1->CCR |= DMA_CCR_EN;
+    ADC1->CFGR1 |= ADC_CFGR1_DMAEN;
+
+    /* 清ADC溢出标志，然后置ADSTART：等待下一次外部TRGO上升沿。 */
+    ADC1->ISR = ADC_ISR_OVR;
+
+    /* 使能 ADC，不重新初始化其他配置 */
+    ADC1->CR |= ADC_CR_ADEN;
+
+
+    ADC1->CR |= ADC_CR_ADSTART;
+}
+
+/* DMA中断只执行ADC停止转换及DMA快速重装；原有滤波、输出判断仍不恢复。 */
 void DMA1_Channel1_IRQHandler(void)
 {
-    /* 仅处理通道1传输完成TC标志；HT和TE未在此函数中处理。 */
-    if (__HAL_DMA_GET_FLAG(DMA1, DMA_ISR_TCIF1))
+
+#if OUTPUT_TEST_ENABLE
+        /* PA12低电平区间表示中断内快速重新武装耗时。 */
+        GPIOA->BRR = GPIO_PIN_12;
+#endif
+    if ((DMA1->ISR & DMA_ISR_TCIF1) != 0U)
     {
-#if OUTPUT_TEST_ENABLE
-        /* 中断处理计时开始，拉低PA12。 */
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET);
-#endif
-        /* 清除本轮DMA传输完成标志，防止该标志持续触发IRQ。 */
-        __HAL_DMA_CLEAR_FLAG(DMA1, DMA_IFCR_CTCIF1);
-        /* 停止当前ADC/DMA，使HAL状态可重新进入下一轮启动。 */
-        if (HAL_ADC_Stop_DMA(&AdcHandle) != HAL_OK)
-        {
-              APP_ErrorHandler();
-        }
-        /* 重新装载10点DMA并等待下一次TIM3 TRGO；TIM3计数器没有停止。 */
-        APP_AdcStartDMA();
-#if OUTPUT_TEST_ENABLE
-        /* 中断处理计时结束，恢复PA12高电平。 */
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET);
-#endif
+
+        APP_AdcDmaFastRearm();
+
     }
+//    /* 防止其他DMA异常标志造成中断不断重复；TE后停止继续运行并进入故障处理。 */
+//    else if ((DMA1->ISR & DMA_ISR_TEIF1) != 0U)
+//    {
+//        DMA1->IFCR = DMA_IFCR_CGIF1;
+//        APP_ErrorHandler();
+//    }
+    
+#if OUTPUT_TEST_ENABLE
+        GPIOA->BSRR = GPIO_PIN_12;
+#endif
 }
 
 /* 系统时钟：HSI 24MHz -> SYSCLK 24MHz -> HCLK 24MHz -> PCLK1 24MHz。 */
