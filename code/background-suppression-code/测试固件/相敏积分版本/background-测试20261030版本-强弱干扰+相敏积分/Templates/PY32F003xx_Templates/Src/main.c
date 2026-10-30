@@ -92,7 +92,7 @@ void TIM3_IRQHandler(void)
 #define ADC_SIGNAL_END_INDEX      13U
 
 /* 固定背景参考ADC码：仅用于计算绝对偏差，不随当前帧均值变化。 */
-#define NOISE_BASELINE_REFERENCE    2040U
+#define NOISE_BASELINE_REFERENCE    2030U
 
 #if (NOISE_BASELINE_REFERENCE > 4095U)
 #error "NOISE_BASELINE_REFERENCE must be within 0..4095 for 12-bit ADC"
@@ -133,14 +133,14 @@ void TIM3_IRQHandler(void)
  * 以下波形仅供算法测试，绝非实际测定模板；上板后请逐个替换。
  * 注意模板必须与PWM触发和ADC采样时序对齐，且非全零。
  */
-#define SIGNAL_TEMPLATE_0    0
-#define SIGNAL_TEMPLATE_1  -20
-#define SIGNAL_TEMPLATE_2  -80
-#define SIGNAL_TEMPLATE_3 -200
-#define SIGNAL_TEMPLATE_4 -270
-#define SIGNAL_TEMPLATE_5 -190
-#define SIGNAL_TEMPLATE_6  -60
-#define SIGNAL_TEMPLATE_7  -10
+#define SIGNAL_TEMPLATE_0    213
+#define SIGNAL_TEMPLATE_1    192
+#define SIGNAL_TEMPLATE_2    -34
+#define SIGNAL_TEMPLATE_3   -151
+#define SIGNAL_TEMPLATE_4   -150
+#define SIGNAL_TEMPLATE_5   -292
+#define SIGNAL_TEMPLATE_6   -159
+#define SIGNAL_TEMPLATE_7     43
 
 /* 匹配幅度用1000表示与模板等幅；比如500表示50%。
  * IIR以放大256倍(Q8)的有符号状态保存，避免整数逐帧除法造成小差值不更新。
