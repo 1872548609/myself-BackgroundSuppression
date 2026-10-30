@@ -6,12 +6,12 @@
  * -> DMA先启动并等待触发 -> 启动TIM3 CH2和CH1 -> DMA完成中断寄存器快速重装
  *
  * 本文件仅为基础配置展示：
- * 1. 不含滤波、阈值判定、NO/NC控制算法和测试观察变量。
+ * 1. 追加波形分区与固定基线平均绝对偏差(MAD)逐帧分类，暂不加入输出或模板积分。
  * 2. 宏控制固定周期或随机周期；随机模式才启用TIM3更新中断，ADC与DMA采集机制不变。
- * 3. 两种模式都在周期末前1us由TIM3 CH2的OC2REF上升沿发出TRGO。
- * 4. ADC仍采用连续转换，DMA仍为NORMAL模式，每轮搬运10点；中断不关闭ADC外设。
+ * 3. 两种模式都在周期末前7us由TIM3 CH2的OC2REF上升沿发出TRGO。
+ * 4. ADC仍采用连续转换，DMA仍为NORMAL模式，每轮搬运14点；保留原快速重装操作。
  *    因此本版并不保证每个随机发射周期只采1点；这是保留新版ADC配置的结果。
- * 5. 随机模式最短周期30us，必须上板检查TIM3更新ISR开销和DMA重装耗时。
+ * 5. 当前候选表为140us（10项相同），修改随机表后须重新检查中断与DMA重装时序。
  * 6. 需要结合main.h、HAL底层MSP及芯片参考手册确认ADC0对应引脚和DMA请求映射。
  */
 
@@ -39,12 +39,12 @@
 #define TIM3_INITIAL_PERIOD FIXED_TRANSMIT_PERIOD
 #endif
 #define RANDOM_PWM_OFF_US         3U
-#define RANDOM_ADC_BEFORE_END_US  1U
+#define RANDOM_ADC_BEFORE_END_US  7U
 
 #if TRANSMIT_RANDOM_ENABLE
 /* 从main(4).c移植的候选表；可以随机重复同一周期。 */
 static const uint16_t random_period_table[RANDOM_PERIOD_COUNT] = {
-    30U, 40U, 50U, 60U, 70U, 80U, 90U, 100U, 110U, 120U
+    140U, 140U, 140U, 140U, 140U, 140U, 140U, 140U, 140U, 140U
 };
 
 /* 固定种子的xorshift32是伪随机序列，每次上电重复相同序列。 */
@@ -76,8 +76,54 @@ void TIM3_IRQHandler(void)
     }
 }
 #endif
-/* 每次DMA传输10个ADC转换结果；每个结果存入一个16位元素，并非10路ADC。 */
-#define BUFFER_SIZE 10
+/* 每次DMA传输BUFFER_SIZE个ADC转换结果；每个结果存入一个16位元素，并非多路ADC。 */
+#define BUFFER_SIZE 14
+
+/* ==================== 波形分区配置（含首尾索引） ====================
+ * 只调整下面四个索引，就能修改各自区域的起止位置。
+ * 当前分区：索引0~5作为背景区，6~13作为有效光信号区。
+ * 重要：默认划分只是示例！需根据ADC实测脉冲位置重新调整。
+ * 两个区域必须在[0, BUFFER_SIZE-1]中，不允许重叠。
+ */
+#define ADC_BASELINE_START_INDEX  0U
+#define ADC_BASELINE_END_INDEX    5U
+#define ADC_SIGNAL_START_INDEX    6U
+#define ADC_SIGNAL_END_INDEX      13U
+
+/* 固定背景参考ADC码：仅用于计算绝对偏差，不随当前帧均值变化。 */
+#define NOISE_BASELINE_REFERENCE    2040U
+
+#if (NOISE_BASELINE_REFERENCE > 4095U)
+#error "NOISE_BASELINE_REFERENCE must be within 0..4095 for 12-bit ADC"
+#endif
+
+#if (BUFFER_SIZE < 2)
+#error "BUFFER_SIZE must be >= 2"
+#endif
+#if (ADC_BASELINE_START_INDEX > ADC_BASELINE_END_INDEX) || \
+    (ADC_SIGNAL_START_INDEX > ADC_SIGNAL_END_INDEX) || \
+    (ADC_BASELINE_END_INDEX >= BUFFER_SIZE) || \
+    (ADC_SIGNAL_END_INDEX >= BUFFER_SIZE)
+#error "ADC area indexes out of range or inverted"
+#endif
+#if !((ADC_BASELINE_END_INDEX < ADC_SIGNAL_START_INDEX) || \
+      (ADC_SIGNAL_END_INDEX < ADC_BASELINE_START_INDEX))
+#error "ADC baseline and signal areas must not overlap"
+#endif
+
+/* ==================== 当前帧干扰分类阈值 ====================
+ * 每次DMA完成只判断当前帧，不保留历史状态、不迟滞、不进行连续确认。
+ * MAD < WEAK_THRESHOLD              : 0 正常
+ * WEAK_THRESHOLD <= MAD < SEVERE_THRESHOLD : 1 弱干扰
+ * MAD >= SEVERE_THRESHOLD          : 2 强干扰
+ * 两个阈值为调试初值，需按实际采样分布调整。
+ */
+#define NOISE_MAD_WEAK_THRESHOLD     15U
+#define NOISE_MAD_SEVERE_THRESHOLD   60U
+
+#if (NOISE_MAD_WEAK_THRESHOLD >= NOISE_MAD_SEVERE_THRESHOLD)
+#error "Noise thresholds must satisfy WEAK_THRESHOLD < SEVERE_THRESHOLD"
+#endif
 
 /*
  * 输出测试宏：1=开启，0=关闭。
@@ -101,6 +147,27 @@ TIM_OC_InitTypeDef sConfig;
 GPIO_InitTypeDef GPIO_InitStruct;
 /* DMA传输目的缓冲区，存储ADC右对齐12位结果。 */
 uint16_t adc_buffer[BUFFER_SIZE];
+
+/* DMA完成后直接分析adc_buffer；必须在重新武装DMA之前完成分析。 */
+volatile uint32_t g_noise_processed_frames = 0U;
+
+/* Keil Watch观测：仅代表最近一帧的干扰分类，不是保持状态。 */
+volatile uint8_t  g_noise_level = 0U;     /* 0正常/1弱干扰/2强干扰 */
+volatile uint32_t g_noise_metric = 0U;    /* 当前帧固定2040基线平均绝对偏差 */
+volatile uint32_t g_baseline_average = 0U;/* 实测背景均值，只用于调试 */
+volatile uint32_t g_signal_average = 0U;  /* 信号区均值，保留供后续算法使用 */
+
+typedef enum {
+    NOISE_LEVEL_NORMAL = 0U,
+    NOISE_LEVEL_WEAK   = 1U,
+    NOISE_LEVEL_SEVERE = 2U
+} NoiseLevel_t;
+
+/* DMA中断只调度函数；全部计算直接使用adc_buffer，不复制快照。 */
+static uint32_t APP_NoiseCalculateMAD(const uint16_t *samples, uint32_t *baseline_mean);
+static uint8_t APP_NoiseClassifyFrame(uint32_t mad);
+static void APP_NoiseAnalyzeFrame(const uint16_t *samples);
+static void APP_AdcDmaFastRearm(void);
 
 static void APP_SystemClockConfig(void);
 static void GPIO_Init(void);
@@ -149,11 +216,74 @@ int main(void)
     if (HAL_TIM_OC_Start(&Tim3Handle, TIM_CHANNEL_1) != HAL_OK)
           APP_ErrorHandler();
 
-    /* 当前主循环无业务处理，采集链路由定时器、ADC、DMA及DMA中断完成。 */
+    /* 业务处理全部由中断触发，主循环保持空闲。 */
     while (1)
     {
     }
 }
+/* ====================== 波形分区与背景MAD分析 ======================
+ * DMA NORMAL完成后，直接读取原始adc_buffer；无需复制快照。
+ * 注意：MAD分析完成前不能重装DMA，否则下一帧可能覆盖当前数据。
+ */
+/* 阶段2：计算背景区相对于固定基线NOISE_BASELINE_REFERENCE的平均绝对偏差。
+ * 公式：metric = Σ |samples[i] - NOISE_BASELINE_REFERENCE| / count。
+ * 与传统“围绕本帧均值的MAD”不同，固定基线指标同时反映背景直流偏移
+ * 与随机波动；这正是本版的预期行为。
+ * 只遍历背景区一次，不排序、不去极值、不复制快照。
+ * 另外记录背景区真实均值供Keil Watch观察，但不参与偏差计算。
+ */
+static uint32_t APP_NoiseCalculateMAD(const uint16_t *samples,
+                                     uint32_t *baseline_mean)
+{
+    uint32_t i;
+    uint32_t sum = 0U;
+    uint32_t deviations = 0U;
+    const uint32_t count = ADC_BASELINE_END_INDEX - ADC_BASELINE_START_INDEX + 1U;
+
+    for (i = ADC_BASELINE_START_INDEX; i <= ADC_BASELINE_END_INDEX; ++i)
+    {
+        uint32_t value = samples[i];
+        sum += value;
+        deviations += (value >= NOISE_BASELINE_REFERENCE)
+                    ? (value - NOISE_BASELINE_REFERENCE)
+                    : (NOISE_BASELINE_REFERENCE - value);
+    }
+
+    *baseline_mean = sum / count;  /* 仅保留用于观察当前背景实际均值 */
+    return deviations / count;   /* 固定基线平均绝对偏差，整数ADC码 */
+}
+
+/* 阶段3：依据本帧MAD直接分类，不依赖此前任何帧的判断结果。 */
+static uint8_t APP_NoiseClassifyFrame(uint32_t mad)
+{
+    if (mad >= NOISE_MAD_SEVERE_THRESHOLD)
+        return (uint8_t)NOISE_LEVEL_SEVERE;
+
+    if (mad >= NOISE_MAD_WEAK_THRESHOLD)
+        return (uint8_t)NOISE_LEVEL_WEAK;
+
+    return (uint8_t)NOISE_LEVEL_NORMAL;
+}
+
+/* 阶段4：更新当前帧平均绝对偏差和分类，信号区仍只计算均值。 */
+static void APP_NoiseAnalyzeFrame(const uint16_t *samples)
+{
+    uint32_t i;
+    uint32_t signal_sum = 0U;
+    uint32_t baseline_mean = 0U;
+    const uint32_t signal_count = ADC_SIGNAL_END_INDEX - ADC_SIGNAL_START_INDEX + 1U;
+    const uint32_t mad = APP_NoiseCalculateMAD(samples, &baseline_mean);
+
+    for (i = ADC_SIGNAL_START_INDEX; i <= ADC_SIGNAL_END_INDEX; ++i)
+        signal_sum += samples[i];
+
+    g_baseline_average = baseline_mean;
+    g_signal_average = signal_sum / signal_count;
+    g_noise_metric = mad;
+    g_noise_level = APP_NoiseClassifyFrame(mad);
+    ++g_noise_processed_frames;
+}
+
 /* 普通GPIO配置：PA5、PA12推挽输出；PB5上拉输入。 */
 static void GPIO_Init(void)
 {
@@ -284,7 +414,7 @@ static void TMR3_OC_Init(void)
 
     sConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;
 
-    /* CH2 PWM2：在周期终点前1us产生OC2REF上升沿，作为ADC触发。 */
+    /* CH2 PWM2：在周期终点前RANDOM_ADC_BEFORE_END_US产生OC2REF上升沿。 */
     sConfig.Pulse = TIM3_INITIAL_PERIOD - RANDOM_ADC_BEFORE_END_US;
 
     if (HAL_TIM_OC_ConfigChannel(&Tim3Handle, &sConfig, TIM_CHANNEL_2) != HAL_OK)
@@ -308,7 +438,7 @@ static void TMR3_OC_Init(void)
 
 }
 
-/* ADC1及DMA配置：ADC0单通道，12位，TIM3 TRGO触发，连续转换，DMA一次搬运10个点。 */
+/* ADC1及DMA配置：ADC0单通道，12位，TIM3 TRGO触发，连续转换，DMA一次搬运BUFFER_SIZE个点。 */
 static void APP_AdcInit(void)
 {
 
@@ -428,10 +558,10 @@ static void APP_AdcInit(void)
 
 }
 
-/* 启动一轮ADC DMA传输：10个结果写入数组，随后等待下一次重装。 */
+/* 启动一轮ADC DMA传输：BUFFER_SIZE个结果写入数组，随后等待下一次重装。 */
 static void APP_AdcStartDMA(void)
 {
-    /* 配置并启动ADC DMA。第三个参数10代表DMA要搬运的转换结果个数。 */
+    /* 配置并启动ADC DMA。第三个参数BUFFER_SIZE代表DMA要搬运的转换结果个数。 */
     if (HAL_ADC_Start_DMA(&AdcHandle, (uint32_t*)adc_buffer, BUFFER_SIZE) != HAL_OK)
     {
             APP_ErrorHandler();
@@ -445,9 +575,9 @@ static void APP_AdcStartDMA(void)
  * DMA NORMAL 快速重新武装（仅由 DMA1_Channel1_IRQHandler 调用）。
  *
  * 目标：
- * 1. ADC始终保持ADEN使能，不执行ADC_Disable和HAL_ADC_Stop_DMA。
- * 2. DMA搬满10点后结束本轮连续转换。
- * 3. DMA通道重装CNDTR=10，下一次TRGO再启动下一组连续转换。
+ * 1. 不调用ADC_Disable和HAL_ADC_Stop_DMA；保持原版ADEN重启步骤。
+ * 2. DMA搬满BUFFER_SIZE点后结束本轮连续转换。
+ * 3. DMA通道重装CNDTR=BUFFER_SIZE，下一次TRGO再启动下一组连续转换。
  *
  * 重要限制：
  * - 这是直接寄存器控制路径，首次启动仍由HAL_ADC_Start_DMA完成。
@@ -461,7 +591,6 @@ static void APP_AdcStartDMA(void)
 
 static void APP_AdcDmaFastRearm(void)
 {
-    uint32_t timeout;
 
     /* DMA NORMAL传满后一般硬件已停止。再次清EN确保CNDTR可写。 */
     DMA1_Channel1->CCR &= ~DMA_CCR_EN;
@@ -500,30 +629,24 @@ static void APP_AdcDmaFastRearm(void)
     ADC1->CR |= ADC_CR_ADSTART;
 }
 
-/* DMA中断只执行ADC停止转换及DMA快速重装；原有滤波、输出判断仍不恢复。 */
+/* DMA TC中断：先直接分析原始数据，再快速重新武装DMA。
+ * 不使用快照、不在主循环处理数据；MAD与DMA重装分别由函数负责。
+ * 代价：MAD计算占用下次TRGO前的重新武装时间，周期缩短时需实测确认。
+ */
 void DMA1_Channel1_IRQHandler(void)
 {
-
-#if OUTPUT_TEST_ENABLE
-        /* PA12低电平区间表示中断内快速重新武装耗时。 */
-        GPIOA->BRR = GPIO_PIN_12;
-#endif
     if ((DMA1->ISR & DMA_ISR_TCIF1) != 0U)
     {
-
+#if OUTPUT_TEST_ENABLE
+        GPIOA->BRR = GPIO_PIN_12;
+#endif
+        APP_NoiseAnalyzeFrame(adc_buffer);
         APP_AdcDmaFastRearm();
-
-    }
-//    /* 防止其他DMA异常标志造成中断不断重复；TE后停止继续运行并进入故障处理。 */
-//    else if ((DMA1->ISR & DMA_ISR_TEIF1) != 0U)
-//    {
-//        DMA1->IFCR = DMA_IFCR_CGIF1;
-//        APP_ErrorHandler();
-//    }
-    
 #if OUTPUT_TEST_ENABLE
         GPIOA->BSRR = GPIO_PIN_12;
 #endif
+    }
+    /* 保持原版DMA TE错误处理策略不变。 */
 }
 
 /* 系统时钟：HSI 24MHz -> SYSCLK 24MHz -> HCLK 24MHz -> PCLK1 24MHz。 */
