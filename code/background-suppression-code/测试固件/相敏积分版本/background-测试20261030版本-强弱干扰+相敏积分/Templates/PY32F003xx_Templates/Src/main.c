@@ -170,7 +170,7 @@ void TIM3_IRQHandler(void)
  * 注意：不包含DMA传输本身的时间，也不包含IRQ入口到标记语句前的时间；
  * GPIO函数执行及中断抢占也影响观察值，测试宏开启会增加少量执行开销。
  */
-#define OUTPUT_TEST_ENABLE 1
+#define OUTPUT_TEST_ENABLE 0
 
 /* ADC1句柄，保存ADC初始化参数和HAL运行状态。 */
 ADC_HandleTypeDef AdcHandle;
