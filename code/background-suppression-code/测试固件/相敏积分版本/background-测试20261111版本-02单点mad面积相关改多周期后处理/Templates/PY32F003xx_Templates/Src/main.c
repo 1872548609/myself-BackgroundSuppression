@@ -74,7 +74,7 @@
 #define SIGNAL_FILTER_WEAK_SHIFT       3U  /* 弱干扰IIR=1/8，仅在产生积分平均结果时更新。 */
 #define SIGNAL_TRIMMED_MEAN_ENABLE     1U  /* 1=开启8组积分平均值的截尾平均；0=直接使用积分平均值。 */
 #define SIGNAL_TRIM_WINDOW_SIZE        8U  /* 截尾历史数量；当前固定8组，去掉两端各2组。 */
-#define OUTPUT_DEADBAND_ENABLE          1U  /* 1=开启IIR后输出死区；0=跳过死区，直接使用IIR结果。 */
+#define OUTPUT_DEADBAND_ENABLE         1U  /* 1=开启IIR后输出死区；0=跳过死区，直接使用IIR结果。 */
 #define OUTPUT_DEADBAND                10U  /* 积分结果死区：相对上次保持值，变化绝对值<=10不更新。 */
 /* 后级输出阈值使用正负窗口相关积分的数值，与前置单点MAD独立。 */
 #define OUTPUT_OFF_THRESHOLD           90  /* 积分滤波值<=200连续确认遮光，沿用参考积分版。 */
@@ -200,7 +200,7 @@ static void APP_AdcStartDMA(void);
 static void APP_AdcDmaFastRearm(void);
 #if TRANSMIT_RANDOM_ENABLE
 static const uint16_t random_period_table[RANDOM_PERIOD_COUNT] = {
-    30U, 30U, 30U, 30U, 30U, 30U, 30U, 30U, 30U, 30U
+    50U, 50U, 50U, 50U, 50U, 50U, 50U, 50U, 50U, 50U
 }; /* 当前10个候选值均为100us，虽运行随机抽取但周期实际固定。 */
 static uint32_t rng_state = 0x6D2B79F5UL;
 static uint16_t Random_NextPeriod(void)
