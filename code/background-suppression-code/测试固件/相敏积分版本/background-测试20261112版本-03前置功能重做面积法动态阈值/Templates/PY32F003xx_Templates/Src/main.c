@@ -31,8 +31,8 @@
  * 满N帧后求各帧面积的平均值；干扰判断直接使用组平均绝对面积。 */
 #define SIGNAL_AREA_WEAK_ENTER          40U  /* 面积 >= 100进入弱干扰，使用弱干扰IIR。 */
 #define SIGNAL_AREA_WEAK_RELEASE        30U  /* 面积 <= 90退出弱干扰，恢复正常IIR。 */
-#define SIGNAL_AREA_STRONG_ENTER        200U  /* 面积 > 200视为强干扰候选；连续确认后暂停输出确认计数。 */
-#define SIGNAL_AREA_STRONG_RELEASE      190U  /* 面积 <= 190累计恢复确认；与进入阈值构成迟滞。 */
+#define SIGNAL_AREA_STRONG_ENTER        400U  /* 面积 > 200视为强干扰候选；连续确认后暂停输出确认计数。 */
+#define SIGNAL_AREA_STRONG_RELEASE      300U  /* 面积 <= 190累计恢复确认；与进入阈值构成迟滞。 */
 #define SIGNAL_AREA_STRONG_CONFIRM       5U  /* 连续5次分组结束判断满足强干扰阈值才暂停输出确认。 */
 #define SIGNAL_AREA_RECOVER_CONFIRM      5U  /* 强干扰后连续5次分组结束判断满足解除阈值才恢复输出确认。 */
 
