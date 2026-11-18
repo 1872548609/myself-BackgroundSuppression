@@ -94,7 +94,7 @@
 #define OUTPUT_DEADBAND                10U  /* 积分结果死区：相对上次保持值，变化绝对值<=10不更新。 */
 /* 后级输出阈值使用正负窗口相关积分的数值，与六点前置面积独立。 */
 #define OUTPUT_OFF_THRESHOLD          -10  /* 判定值<=-10连续确认遮光。 */
-#define OUTPUT_HYSTERESIS             280  /* 有光阈值=-10+280=270。 */
+#define OUTPUT_HYSTERESIS             50  /* 有光阈值=-10+280=270。 */
 #define OUTPUT_WEAK_OFF_THRESHOLD     -10  /* 弱干扰时遮光阈值。 */
 #define OUTPUT_WEAK_HYSTERESIS        200  /* 弱干扰有光阈值=-10+200=190。 */
 #define OUTPUT_STRONG_OFF_THRESHOLD   -10  /* 强干扰时遮光阈值，待实测标定。 */
